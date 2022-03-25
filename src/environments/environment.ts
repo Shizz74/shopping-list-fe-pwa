@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiKey: 'sew1'
+  apiKey: 'sew12'
 };
 
 /*
