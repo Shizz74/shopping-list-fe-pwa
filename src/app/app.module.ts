@@ -17,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AddCategoryComponent } from './category/add-category/add-category.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { EditCategoryComponent } from './category/edit-category/edit-category.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppComponent,
     MenuComponent,
     CategoryComponent,
-    AddCategoryComponent
+    AddCategoryComponent,
+    EditCategoryComponent
   ],
   imports: [
     HttpClientModule,

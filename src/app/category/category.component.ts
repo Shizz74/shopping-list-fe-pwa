@@ -4,12 +4,6 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { CategoryService } from 'src/core/_service/category.service';
 import { Category } from 'src/core/interface/category';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
@@ -22,6 +16,7 @@ export class CategoryComponent implements OnInit {
   faEdit = faEdit;
   faTrash = faTrash
   closeResult = '';
+  idToRemove= '';
   
 
   constructor(
@@ -35,22 +30,23 @@ export class CategoryComponent implements OnInit {
     })
   }
 
-  delete(_id: string) {
-    // this.catService.deleteCategory(_id).subscribe(
-    //   res => {
-    //     this.catService.getAllCategories().subscribe(res => {
-    //       this.dataSource = res;
-    //     })
-    //   },
-    //   error => {
-    //   console.log("bład");
-    //   }
-    // )
+  delete() {
+    this.catService.deleteCategory(this.idToRemove).subscribe(
+      res => {
+        this.catService.getAllCategories().subscribe(res => {
+          this.dataSource = res;
+          this.closeResult = `Dismissed ${this.getDismissReason('Usunięcie kategorii')}`;
+        })
+      },
+      error => {
+      console.log("bład");
+      }
+    )
   }
 
-  open(content: any) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
+  open(content: any, _id: string) {
+    this.idToRemove = _id;
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true}).result.then((result) => {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
