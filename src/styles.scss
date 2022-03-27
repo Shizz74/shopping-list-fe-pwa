@@ -7,3 +7,37 @@ body{
     max-width: 100vw;
     overflow-x: hidden;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+table {
+    width: 100%;
+}
+
+input:invalid  {
+    border-color: red;
+}
+
+input:valid {
+    border-color: green;
+}
+
+
+// Table css
+.mat-cell {
+    color: white;
+}
+
+th, td {
+    vertical-align: middle;
+}
+
+// Table icons 
+
+fa-icon:hover {
+ cursor: pointer;
+}
+
+// End table css
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
