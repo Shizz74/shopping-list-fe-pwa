@@ -18,6 +18,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AddCategoryComponent } from './category/add-category/add-category.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditCategoryComponent } from './category/edit-category/edit-category.component';
+import { ProductComponent } from './product/product.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { EditCategoryComponent } from './category/edit-category/edit-category.co
     MenuComponent,
     CategoryComponent,
     AddCategoryComponent,
-    EditCategoryComponent
+    EditCategoryComponent,
+    ProductComponent
   ],
   imports: [
     HttpClientModule,

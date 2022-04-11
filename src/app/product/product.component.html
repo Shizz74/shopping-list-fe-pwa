@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="w-100" style="background-color: red;">
+        <a class="btn btn-success my-3 mr-3 float-end" routerLink="/nowy-produkt">Dodaj produkt</a>
+    </div>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Nazwa </th>
+            <td mat-cell *matCellDef="let element" style="background-color:red">
+                {{element.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef class="col-2 col-sm-1 centered"> Edytuj </th>
+            <td mat-cell *matCellDef="let element" class="centered" style="background-color:red"
+                >
+                <a [routerLink]="['/produkt-edycja', element._id]">
+                    <fa-icon [icon]="faEdit" size="lg"></fa-icon>
+                </a>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef class="col-2 col-sm-1 centered"> Usuń </th>
+            <td mat-cell *matCellDef="let element" class="centered" style="background-color: red"
+                >
+                <fa-icon [icon]="faTrash" size="lg" (click)="open(content, element._id)"></fa-icon>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+
+
+<!-- Delete modal  -->
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <p>Czy na pewno chcesz usunąć produkt?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.close('Click cancel')">Niet</button>
+        <button type="button" class="btn btn-success" (click)="delete(); modal.dismiss('Save click')">No pewka</button>
+    </div>
+</ng-template>
+
+<!-- Delete modal  -->
