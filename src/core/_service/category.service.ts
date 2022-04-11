@@ -25,5 +25,13 @@ export class CategoryService {
   deleteCategory(_id: string){
     return this.http.delete(`${env.apiUrl}/category/${_id}`)
   }
+
+  getSpecCat(_id: string) {
+    return this.http.get(`${env.apiUrl}/category/${_id}`)
+  }
+
+  editCategory(_id: string, body: Category){
+    return this.http.put(`${env.apiUrl}/category/update/${_id}`, body);
+  }
 }
 

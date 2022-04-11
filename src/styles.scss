@@ -24,8 +24,13 @@ input:valid {
 
 
 // Table css
-.mat-cell {
+.mat-cell,
+.mat-cell a {
     color: white;
+}
+
+.mat-cell a:hover {
+    color: rgb(192, 192, 192);
 }
 
 th, td {
@@ -36,6 +41,7 @@ th, td {
 
 fa-icon:hover {
  cursor: pointer;
+ color: rgb(192, 192, 192);
 }
 
 // End table css

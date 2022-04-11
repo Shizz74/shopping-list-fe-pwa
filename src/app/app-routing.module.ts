@@ -8,8 +8,8 @@ const routes: Routes = [
   { path: '', redirectTo: '/kategorie', pathMatch: 'full'},
   // { path: '**', component: PageNotFoundComponent },
   { path: 'kategorie', component: CategoryComponent },
-  { path: 'nowa-kategoria', component: AddCategoryComponent } 
-  { path: 'kategoria-edycja/id', component: EditCategoryComponent}
+  { path: 'nowa-kategoria', component: AddCategoryComponent },
+  { path: 'kategoria-edycja/:id', component: EditCategoryComponent}
 ];
 
 @NgModule({
