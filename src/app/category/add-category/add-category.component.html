@@ -1,6 +1,6 @@
 <div class="container d-flex align-items-center flex-column">
-    <div *ngIf="alert" class="alert mt-3 col-4" [ngClass]=" error ? 'alert-danger' : 'alert-success'"> {{message}} </div>
-    <form [formGroup]="addCategory" (ngSubmit)="onSubmit()" class="col col-sm-8 col-md-6 col-xl-4" novalidate>
+    <div *ngIf="alert" class="alert mt-3 col-12 col-sm-8 col-md-6 col-xl-4" [ngClass]=" error ? 'alert-danger' : 'alert-success'"> {{message}} </div>
+    <form [formGroup]="addCategory" (ngSubmit)="onSubmit()" class="col-12 col-sm-8 col-md-6 col-xl-4" novalidate>
         <div class="form-group mt-3">
           <label for="name">Nazwa</label>
           <input type="text" class="form-control" id="name" aria-describedby="name" placeholder="Wpisz nazwę" formControlName="name" required>

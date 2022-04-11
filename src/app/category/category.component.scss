@@ -5,3 +5,18 @@
 p {
     margin-bottom: 0 !important;
 }
+
+.centered {
+    text-align: center
+}
+
+td.mat-cell:last-of-type,
+th.mat-header-cell:last-of-type {
+    padding-right: 0 !important;
+}
+
+@media screen and (max-width: 576px) {
+    td.mat-cell:first-of-type {
+        padding-left: 10px !important;
+    }
+}
