@@ -19,6 +19,7 @@ import { AddCategoryComponent } from './category/add-category/add-category.compo
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditCategoryComponent } from './category/edit-category/edit-category.component';
 import { ProductComponent } from './product/product.component';
+import { AddProductComponent } from './product/add-product/add-product.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { ProductComponent } from './product/product.component';
     CategoryComponent,
     AddCategoryComponent,
     EditCategoryComponent,
-    ProductComponent
+    ProductComponent,
+    AddProductComponent
   ],
   imports: [
     HttpClientModule,

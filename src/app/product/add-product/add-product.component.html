@@ -1,5 +1,5 @@
 <div class="container d-flex align-items-center flex-column">
-    <!-- <div *ngIf="alert" class="alert mt-3 col-12 col-sm-8 col-md-6 col-xl-4" [ngClass]=" error ? 'alert-danger' : 'alert-success'"> {{message}} </div> -->
+    <div *ngIf="alert" class="alert mt-3 col-12 col-sm-8 col-md-6 col-xl-4" [ngClass]=" error ? 'alert-danger' : 'alert-success'"> {{message}} </div>
     <form [formGroup]="addProduct" (ngSubmit)="onSubmit()" class="col-12 col-sm-8 col-md-6 col-xl-4" novalidate>
         <div class="form-group mt-3">
           <label for="name">Nazwa</label>
@@ -8,11 +8,10 @@
     
         <div class="form-group mt-3">
           <label for="category">Kategoria</label>
-          <select class="form-select" aria-label="Default select example" formControlName="category">
-            <option selected>Wybierz kategorię</option>
-            <option *ngFor="let cat of allCategory" value="{{cat._id}}">{{cat.name}}</option>
+          <select class="form-select" aria-label="Default select example" formControlName="categoryId" required>
+            <option value="" disabled selected>Wybierz kategorię</option>
+            <option *ngFor="let cat of allCategory" [value]="cat._id">{{cat.name}}</option>
           </select>
-          <!-- <input type="color" class="form-control color-picker" id="color" placeholder="Wybierz kategorię" formControlName="category" required invalid> -->
         </div>
         <div class="mt-3 d-flex justify-content-between">
             <a routerLink="/produkty" class="btn btn-primary my-2 my-sm-4 mx-1">Wróć bez zapisywania</a>

@@ -14,11 +14,13 @@ table {
     width: 100%;
 }
 
-input:invalid  {
+input:invalid,
+select:invalid  {
     border-color: red;
 }
 
-input:valid {
+input:valid,
+select:valid {
     border-color: green;
 }
 
