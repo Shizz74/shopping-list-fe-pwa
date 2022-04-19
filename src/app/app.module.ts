@@ -20,6 +20,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditCategoryComponent } from './category/edit-category/edit-category.component';
 import { ProductComponent } from './product/product.component';
 import { AddProductComponent } from './product/add-product/add-product.component';
+import { EditProductComponent } from './product/edit-product/edit-product.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { AddProductComponent } from './product/add-product/add-product.component
     AddCategoryComponent,
     EditCategoryComponent,
     ProductComponent,
-    AddProductComponent
+    AddProductComponent,
+    EditProductComponent
   ],
   imports: [
     HttpClientModule,
