@@ -3,6 +3,11 @@
         <a class="btn btn-success my-3 mr-3 float-end" routerLink="/nowy-produkt">Dodaj produkt</a>
     </div>
 
+    <mat-form-field appearance="standard">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+      </mat-form-field>
+
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <ng-container matColumnDef="name">

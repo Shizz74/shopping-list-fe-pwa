@@ -4,6 +4,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { ProductService } from 'src/core/_service/product.service';
 import { Product } from '../../core/interface/product'
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-product',
@@ -23,14 +24,19 @@ export class ProductComponent implements OnInit {
     private productService: ProductService,
     private modalService: NgbModal
   ) { }
-
+  
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe(
-      res => {
-        this.dataSource = res;
+      (res: any) => {
+         this.dataSource = new MatTableDataSource(res);
       }
     )
   }
+
 
   delete() {
     this.productService.deleteProduct(this.idToRemove).subscribe(

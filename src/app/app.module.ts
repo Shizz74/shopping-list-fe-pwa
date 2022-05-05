@@ -1,27 +1,31 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { env } from '../environments/environment';
-import { MenuComponent } from './menu/menu.component';
-import { CategoryComponent } from './category/category.component';
 import { HttpClientModule } from '@angular/common/http';
 
-
-import {MatTableModule} from '@angular/material/table';
+// Material imports
+import { MatTableModule } from '@angular/material/table';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+// Componets imports
+import { MenuComponent } from './menu/menu.component';
+import { CategoryComponent } from './category/category.component';
 import { AddCategoryComponent } from './category/add-category/add-category.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditCategoryComponent } from './category/edit-category/edit-category.component';
 import { ProductComponent } from './product/product.component';
 import { AddProductComponent } from './product/add-product/add-product.component';
 import { EditProductComponent } from './product/edit-product/edit-product.component';
 
+// Third part imports
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -41,6 +45,10 @@ import { EditProductComponent } from './product/edit-product/edit-product.compon
     MatTableModule,
     FontAwesomeModule,
     ReactiveFormsModule,
+    Ng2SearchPipeModule,
+    MatInputModule,
+    BrowserAnimationsModule,
+    NoopAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: env.production,
       // Register the ServiceWorker as soon as the application is stable

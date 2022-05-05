@@ -18,7 +18,7 @@ export class ProductService {
   }
 
   saveProduct(body: Product){
-      return this.http.post(`${env.apiUrl}/product`, body);
+    return this.http.post(`${env.apiUrl}/product`, body);
   }
 
   deleteProduct(_id: string){
