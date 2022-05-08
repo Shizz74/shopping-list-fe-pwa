@@ -24,6 +24,7 @@ export class EditProductComponent implements OnInit {
   editProduct = new FormGroup({
     name: new FormControl('', [Validators.required]),
     categoryId: new FormControl('', [Validators.required]),
+    unit: new FormControl('', [Validators.required]),
   });
 
   constructor(

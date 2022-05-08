@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {MatRadioModule} from '@angular/material/radio';
 
 // Componets imports
 import { MenuComponent } from './menu/menu.component';
@@ -49,6 +50,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     MatInputModule,
     BrowserAnimationsModule,
     NoopAnimationsModule,
+    MatRadioModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: env.production,
       // Register the ServiceWorker as soon as the application is stable

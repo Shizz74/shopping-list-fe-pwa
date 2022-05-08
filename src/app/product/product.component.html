@@ -1,13 +1,11 @@
 <div class="container">
-    <div class="w-100" style="background-color: red;">
-        <a class="btn btn-success my-3 mr-3 float-end" routerLink="/nowy-produkt">Dodaj produkt</a>
+    <div class="row d-flex justify-content-between w-100">
+        <mat-form-field class="col-6 col-md-3" appearance="standard">
+            <mat-label>Wyszukaj produkt</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Np. chleb" #input>
+        </mat-form-field>
+        <a class="btn btn-success col-6 col-md-3 my-3 float-end" routerLink="/nowy-produkt">Dodaj produkt</a>
     </div>
-
-    <mat-form-field appearance="standard">
-        <mat-label>Filter</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
-      </mat-form-field>
-
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <ng-container matColumnDef="name">

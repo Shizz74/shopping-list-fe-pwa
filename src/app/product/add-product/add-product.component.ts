@@ -19,6 +19,7 @@ export class AddProductComponent implements OnInit {
   addProduct = new FormGroup({
     name: new FormControl('', [Validators.required]),
     categoryId: new FormControl('', [Validators.required]),
+    unit: new FormControl('sztuk', [Validators.required])
   });
   
 
@@ -38,6 +39,7 @@ export class AddProductComponent implements OnInit {
     this.productService.saveProduct(this.addProduct.value)
     .subscribe(
       res => {
+        console.log(this.addProduct.value);
         this.error = false;
         this.message = "Zapisane!"
         this.alert = true;
