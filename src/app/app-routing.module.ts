@@ -8,7 +8,7 @@ import { AddProductComponent } from './product/add-product/add-product.component
 import { EditProductComponent } from './product/edit-product/edit-product.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/produkty', pathMatch: 'full'},
+  { path: '', redirectTo: '/listy', pathMatch: 'full'},
   // { path: '**', component: PageNotFoundComponent },
   { path: 'kategorie', component: CategoryComponent },
   { path: 'nowa-kategoria', component: AddCategoryComponent },
