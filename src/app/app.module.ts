@@ -27,6 +27,7 @@ import { EditProductComponent } from './product/edit-product/edit-product.compon
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { ListsComponent } from './lists/lists.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     EditCategoryComponent,
     ProductComponent,
     AddProductComponent,
-    EditProductComponent
+    EditProductComponent,
+    ListsComponent
   ],
   imports: [
     HttpClientModule,

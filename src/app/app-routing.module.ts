@@ -6,10 +6,14 @@ import { EditCategoryComponent } from './category/edit-category/edit-category.co
 import { ProductComponent } from './product/product.component';
 import { AddProductComponent } from './product/add-product/add-product.component'
 import { EditProductComponent } from './product/edit-product/edit-product.component';
+import { ListsComponent } from './lists/lists.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/listy', pathMatch: 'full'},
   // { path: '**', component: PageNotFoundComponent },
+  { path: 'listy', component: ListsComponent },
+  // { path: 'nowa-lista', component: CategoryComponent },
+  // { path: 'lista-edycja/:id', component: CategoryComponent },
   { path: 'kategorie', component: CategoryComponent },
   { path: 'nowa-kategoria', component: AddCategoryComponent },
   { path: 'kategoria-edycja/:id', component: EditCategoryComponent},
