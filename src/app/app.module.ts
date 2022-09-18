@@ -28,6 +28,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ListsComponent } from './lists/lists.component';
+import { AddListComponent } from './lists/add-list/add-list/add-list.component';
+import { EditListComponent } from './lists/edit-list/edit-list/edit-list.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { ListsComponent } from './lists/lists.component';
     ProductComponent,
     AddProductComponent,
     EditProductComponent,
-    ListsComponent
+    ListsComponent,
+    AddListComponent,
+    EditListComponent
   ],
   imports: [
     HttpClientModule,

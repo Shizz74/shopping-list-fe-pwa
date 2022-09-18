@@ -6,7 +6,9 @@
 
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> Nazwa </th>
-            <a routerLink="/"><td mat-cell *matCellDef="let element" style="background: red;">{{element.name}} </td></a>
+            <!-- <a [routerLink]="['/lista-edycja', element._id]"> -->
+                <td mat-cell *matCellDef="let element" (click)="goToListView(element._id)">{{element.name}} </td>
+            <!-- </a> -->
         </ng-container>
         <ng-container matColumnDef="delete">
             <th mat-header-cell *matHeaderCellDef class="col-2 col-sm-1"> Usuń </th>

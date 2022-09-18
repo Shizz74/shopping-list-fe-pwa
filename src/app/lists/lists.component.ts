@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {Router} from "@angular/router"
 
 import { ListsService } from 'src/core/_service/lists.service';
 import { List } from '../../core/interface/list'
@@ -22,7 +23,8 @@ export class ListsComponent implements OnInit {
 
   constructor(
     private listsService: ListsService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -31,6 +33,10 @@ export class ListsComponent implements OnInit {
          this.dataSource = new MatTableDataSource(res);
       }
     )
+  }
+
+  goToListView(_id: string) {
+    this.router.navigate(['/lista-edycja', _id])
   }
 
   delete() {
