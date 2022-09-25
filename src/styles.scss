@@ -2,10 +2,18 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import './app/shared/style/reset.css';
 
+// Colors
+:root {
+    --fonts-color: #b6b6b6;
+    --bg-color: #095256;
+    --active-color: #00ffd5;
+}
+
 html,
 body{
     max-width: 100vw;
     overflow-x: hidden;
+    background: #412234 !important;
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
