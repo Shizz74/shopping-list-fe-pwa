@@ -24,13 +24,19 @@
 <nav class="main-nav flex-center">
   <ul class="flex-center">
     <li>
-      <a class="flex-center menu" [ngClass]="activeElement === 'list' ? 'active' : ''" (click)="setActive('list')" routerLink="/listy">L</a>
+      <a class="flex-center menu" (click)="setActive('list')" routerLink="/listy">
+        <img width="35px" [src]="activeElement === 'list' ? './../../assets/icons/list_pink.png' : './../../assets/icons/list_white.png'" alt="">
+      </a>
     </li>
     <li>
-      <a class="flex-center menu" [ngClass]="activeElement === 'products' ? 'active' : ''" (click)="setActive('products')" routerLink="/produkty">P</a>
+      <a class="flex-center menu" (click)="setActive('products')" routerLink="/produkty">
+        <img width="35px" [src]="activeElement === 'products' ? './../../assets/icons/product_pink.png' : './../../assets/icons/product_white.png'" alt="">
+      </a>
     </li>
     <li>
-      <a class="flex-center menu" [ngClass]="activeElement === 'category' ? 'active' : ''" (click)="setActive('category')" routerLink="/kategorie">K</a>
+      <a class="flex-center menu" (click)="setActive('category')" routerLink="/kategorie">
+        <img width="35px" [src]="activeElement === 'category' ? './../../assets/icons/list_pink.png' : './../../assets/icons/list_white.png'" alt="">
+      </a>
     </li>
     <li>
       <a class="flex-center" routerLink="">+</a>

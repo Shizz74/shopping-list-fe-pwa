@@ -33,21 +33,8 @@
 
 
             & a {
-                text-decoration: none;
-                color: var(--fonts-color);
-                font-size: 25px;
                 width: 100%;
                 height: 100%;
-                transition: font-size .1s;
-
-                &:hover {
-                    color: var(--active-color);
-                    background: rgb(23,109,113);
-                    background: white;
-                    font-size: 28px;
-                    transition: font-size .1s;
-                }
-
             }
         }
     }
@@ -57,10 +44,5 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.active {
-    color: var(--active-color) !important;
-    font-size: 28px;
 }
 
