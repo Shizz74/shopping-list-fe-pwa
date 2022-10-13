@@ -8,6 +8,7 @@ import { NavigationEnd, Router } from '@angular/router';
 export class MenuComponent implements OnInit {
 
   activeElement: string;
+  addItemUrl: string;
 
   constructor(private router: Router) { }
 
@@ -24,10 +25,15 @@ export class MenuComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         if(event.url === '/listy') {
           this.activeElement = 'list'
+          this.addItemUrl = '/nowa-lista';
         } else if (event.url === '/kategorie') {
           this.activeElement = 'category'
+          this.addItemUrl = '/nowa-kategoria';
         } else if (event.url === '/produkty') {
           this.activeElement = 'products'
+          this.addItemUrl = '/nowy-produkt';
+        } else {
+          this.addItemUrl = '';
         }
       }
     })
