@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { List } from '../interface/list'
 import { env } from '../../environments/environment'
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,8 @@ export class ListsService {
     private http: HttpClient
   ) { }
 
-  getAllLists() {
-    return this.http.get(env.apiUrl + '/lists');
+  getAllLists(): Observable<List> {
+    return this.http.get<List>(env.apiUrl + '/lists');
   }
 
   saveList(body: List){

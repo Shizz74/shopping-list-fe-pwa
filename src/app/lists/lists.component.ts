@@ -15,7 +15,7 @@ import { MatTableDataSource } from '@angular/material/table';
 export class ListsComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'delete'];
-  dataSource: List[] | any;
+  lists: List[] | any;
   faEdit = faEdit;
   faTrash = faTrash
   closeResult = '';
@@ -29,8 +29,9 @@ export class ListsComponent implements OnInit {
 
   ngOnInit(): void {
     this.listsService.getAllLists().subscribe(
-      (res: any) => {
-         this.dataSource = new MatTableDataSource(res);
+      (res) => {
+         this.lists = res;
+         console.log(this.lists);
       }
     )
   }
@@ -40,17 +41,17 @@ export class ListsComponent implements OnInit {
   }
 
   delete() {
-    this.listsService.deleteList(this.idToRemove).subscribe(
-      res => {
-        this.listsService.getAllLists().subscribe(res => {
-          this.dataSource = res;
-          this.closeResult = `Dismissed ${this.getDismissReason('Usunięcie produktu')}`;
-        })
-      },
-      error => {
-      console.log("bład");
-      }
-    )
+    // this.listsService.deleteList(this.idToRemove).subscribe(
+    //   res => {
+    //     this.listsService.getAllLists().subscribe(res => {
+    //       this.dataSource = res;
+    //       this.closeResult = `Dismissed ${this.getDismissReason('Usunięcie produktu')}`;
+    //     })
+    //   },
+    //   error => {
+    //   console.log("bład");
+    //   }
+    // )
   }
 
   open(content: any, _id: string) {
