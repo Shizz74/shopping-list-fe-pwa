@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~bootstrap/dist/css/bootstrap.min.css';
+// @import '~bootstrap/dist/css/bootstrap.min.css';
 @import './app/shared/style/reset.css';
 
 // Colors
@@ -8,6 +8,7 @@
     --bg-color: #4e4b5c;
     --bg-color-lighter: #595669;
     --active-color: #f75590;
+    --accept-color: #00b700;
 }
 
 html,
@@ -31,6 +32,38 @@ select:invalid  {
 input:valid,
 select:valid {
     border-color: green;
+}
+
+#customModal {
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 222;
+    width: 100vw;
+    height: 100vh;
+    padding: 10px;
+    background: #4e4b5c69;
+    
+    .modal-content {
+        max-width: 400px;
+        background: white;
+        border-radius: 5px;
+        padding: 10px;
+
+        header,
+        footer {
+            display: flex;
+            justify-content: end;
+        }
+    }
+}
+
+// Buttons
+
+.btn {
+
 }
 
 
@@ -80,4 +113,4 @@ fa-icon:hover {
 
 // End table css
 /* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
+// @import '~bootstrap/scss/bootstrap';

@@ -7,24 +7,28 @@
         <div *ngFor="let list of lists" class="table_row">
             <div class="table_column" (click)="goToListView(list._id)">{{list.name}}</div>
             <div class="table_column">
-                <img src="./../../assets/icons/plus_white.png" alt="" (click)="open(content, list._id)">
+                <img src="./../../assets/icons/plus_white.png" alt="" (click)="openDeleteModal(list._id)">
             </div>
         </div>
     </main>
 </div>
 
-
-<!-- Delete modal  -->
-<ng-template #content let-modal>
-    <div class="modal-header">
-        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+<!-- Delete Modal -->
+<!-- <div id="customModal" *ngIf="this.deleteModal"> -->
+<div id="customModal">
+    <div class="modal-content">
+        <header>
+            <button class="btn btn-close" (click)="this.deleteModal = !this.deleteModal"></button>
+        </header>
+        <article>
+            <p>Czy na pewno chcesz usunąć listę?</p>
+            <!-- <strong>{{ this.listNameToDelete }}</strong> -->
+            <strong>this.listNameToDelete</strong>
+        </article>
+        <footer>
+            <button type="button" class="btn btn-decline" (click)="this.deleteModal = !this.deleteModal;">Nie</button>
+            <button type="button" class="btn btn-agree" (click)="deleteList()">Tak</button>
+        </footer>
     </div>
-    <div class="modal-body">
-        <p>Czy na pewno chcesz usunąć listę?</p>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="modal.close('Click cancel')">Niet</button>
-        <button type="button" class="btn btn-success" (click)="delete(); modal.dismiss('Save click')">No pewka</button>
-    </div>
-</ng-template>
-<!-- Delete modal  -->
+</div>
+<!-- Delete Modal -->

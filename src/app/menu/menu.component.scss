@@ -33,7 +33,7 @@
             border-left: 1px solid var(--fonts-color);
             
             & a {
-                background: #00b700 !important;
+                background: var(--accept-color) !important;
                 border-radius: 0 5px 0 0;
             }
         }

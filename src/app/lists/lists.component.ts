@@ -16,8 +16,10 @@ export class ListsComponent implements OnInit {
   displayedColumns: string[] = ['name', 'delete'];
   lists: List[] | any;
   sortDirection = true;
+  deleteModal = false;
   closeResult = '';
-  idToRemove= '';
+  listIdToRemove= '';
+  listNameToDelete: string;
 
   constructor(
     private listsService: ListsService,
@@ -54,12 +56,12 @@ export class ListsComponent implements OnInit {
     return lists;
   }
 
-  delete() {
-    this.listsService.deleteList(this.idToRemove).subscribe(
+  deleteList() {
+    this.listsService.deleteList(this.listIdToRemove).subscribe(
       res => {
         this.listsService.getAllLists().subscribe(res => {
           this.lists = res;
-          this.closeResult = `Dismissed ${this.getDismissReason('Usunięcie produktu')}`;
+          this.deleteModal = !this.deleteModal;
         })
       },
       error => {
@@ -68,22 +70,10 @@ export class ListsComponent implements OnInit {
     )
   }
 
-  open(content: any, _id: string) {
-    this.idToRemove = _id;
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true}).result.then((result) => {
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+  openDeleteModal(_id: string) {
+    this.listIdToRemove = _id;
+    this.listNameToDelete = this.lists.find(list => list._id === _id).name;
+    console.log(this.listNameToDelete);
+    this.deleteModal = !this.deleteModal;
   }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-
 }
