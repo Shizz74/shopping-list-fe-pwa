@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import {Router} from "@angular/router"
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from "@angular/router"
+import { map } from 'rxjs/operators';
 
 import { ListsService } from 'src/core/_service/lists.service';
 import { List } from '../../core/interface/list'
@@ -16,6 +17,7 @@ export class ListsComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'delete'];
   lists: List[] | any;
+  sortDirection = true;
   faEdit = faEdit;
   faTrash = faTrash
   closeResult = '';
@@ -28,16 +30,33 @@ export class ListsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.listsService.getAllLists().subscribe(
+    this.listsService.getAllLists()
+    .pipe(
+      map(lists => this.sortList(lists, this.sortDirection)
+      )
+    )
+    .subscribe(
       (res) => {
          this.lists = res;
-         console.log(this.lists);
       }
     )
   }
 
   goToListView(_id: string) {
     this.router.navigate(['/lista-edycja', _id])
+  }
+
+  sortList(lists, sortDirection) {
+    console.log(sortDirection)
+    lists.sort((a,b) => {
+      if (sortDirection === true) {
+        return a.name < b.name ? -1 : 1
+      } else {
+        return a.name < b.name ? 1 : -1
+      }
+    });
+    this.sortDirection = !this.sortDirection;
+    return lists;
   }
 
   delete() {

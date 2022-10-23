@@ -14,8 +14,8 @@ export class ListsService {
     private http: HttpClient
   ) { }
 
-  getAllLists(): Observable<List> {
-    return this.http.get<List>(env.apiUrl + '/lists');
+  getAllLists(): Observable<List[]> {
+    return this.http.get<List[]>(env.apiUrl + '/lists');
   }
 
   saveList(body: List){
