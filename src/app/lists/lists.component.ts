@@ -4,9 +4,7 @@ import { Router } from "@angular/router"
 import { map } from 'rxjs/operators';
 
 import { ListsService } from 'src/core/_service/lists.service';
-import { List } from '../../core/interface/list'
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { MatTableDataSource } from '@angular/material/table';
+import { List } from '../../core/interface/list';
 
 @Component({
   selector: 'app-lists',
@@ -18,8 +16,6 @@ export class ListsComponent implements OnInit {
   displayedColumns: string[] = ['name', 'delete'];
   lists: List[] | any;
   sortDirection = true;
-  faEdit = faEdit;
-  faTrash = faTrash
   closeResult = '';
   idToRemove= '';
 
@@ -47,7 +43,6 @@ export class ListsComponent implements OnInit {
   }
 
   sortList(lists, sortDirection) {
-    console.log(sortDirection)
     lists.sort((a,b) => {
       if (sortDirection === true) {
         return a.name < b.name ? -1 : 1
@@ -60,17 +55,17 @@ export class ListsComponent implements OnInit {
   }
 
   delete() {
-    // this.listsService.deleteList(this.idToRemove).subscribe(
-    //   res => {
-    //     this.listsService.getAllLists().subscribe(res => {
-    //       this.dataSource = res;
-    //       this.closeResult = `Dismissed ${this.getDismissReason('Usunięcie produktu')}`;
-    //     })
-    //   },
-    //   error => {
-    //   console.log("bład");
-    //   }
-    // )
+    this.listsService.deleteList(this.idToRemove).subscribe(
+      res => {
+        this.listsService.getAllLists().subscribe(res => {
+          this.lists = res;
+          this.closeResult = `Dismissed ${this.getDismissReason('Usunięcie produktu')}`;
+        })
+      },
+      error => {
+      console.log("bład");
+      }
+    )
   }
 
   open(content: any, _id: string) {
