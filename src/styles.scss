@@ -9,6 +9,7 @@
     --bg-color-lighter: #595669;
     --active-color: #f75590;
     --accept-color: #00b700;
+    --decline-color: #fd4343;
 }
 
 html,
@@ -43,27 +44,67 @@ select:valid {
     z-index: 222;
     width: 100vw;
     height: 100vh;
-    padding: 10px;
     background: #4e4b5c69;
-    
+ 
     .modal-content {
         max-width: 400px;
-        background: white;
+        background: var(--fonts-color);
         border-radius: 5px;
-        padding: 10px;
+
+        article {
+            padding: 30px 20px;
+            background: #79797941;
+        }
 
         header,
         footer {
             display: flex;
             justify-content: end;
+            padding: 10px;
+        }
+
+        footer button:nth-child(1) {
+            margin-right: 10px;
+        }
+
+        strong {
+            font-weight: bold;
         }
     }
 }
 
 // Buttons
-
 .btn {
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: filter .5s;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 
+    img {
+        max-width: 20px;
+    }
+
+    &--close {
+        padding: 10px;
+        
+        img {
+            transform: rotate(-45deg);
+        }
+    }
+
+    &--accept {
+        background: var(--accept-color);
+    }
+
+    &--decline {
+        background: var(--decline-color);
+    }
+
+    &:hover {
+        filter: brightness(0.8);
+    }
 }
 
 

@@ -18,7 +18,9 @@
 <div id="customModal">
     <div class="modal-content">
         <header>
-            <button class="btn btn-close" (click)="this.deleteModal = !this.deleteModal"></button>
+            <button class="btn btn--close" (click)="this.deleteModal = !this.deleteModal">
+                <img src="./../../assets/icons/plus_black.png" alt="">
+            </button>
         </header>
         <article>
             <p>Czy na pewno chcesz usunąć listę?</p>
@@ -26,8 +28,8 @@
             <strong>this.listNameToDelete</strong>
         </article>
         <footer>
-            <button type="button" class="btn btn-decline" (click)="this.deleteModal = !this.deleteModal;">Nie</button>
-            <button type="button" class="btn btn-agree" (click)="deleteList()">Tak</button>
+            <button type="button" class="btn btn--decline" (click)="this.deleteModal = !this.deleteModal;">Nie</button>
+            <button type="button" class="btn btn--accept" (click)="deleteList()">Tak</button>
         </footer>
     </div>
 </div>
