@@ -15,13 +15,13 @@
             font-size: larger;
 
             &:nth-child(1) {
-                min-width: 85%;
+                width: 85%;
                 cursor: pointer;
             }
             &:nth-child(2) {
                 display: flex;
                 justify-content: center;
-                min-width: 15%;
+                width: 15%;
             }
         }
     }
@@ -41,14 +41,14 @@
                 align-items: center;
 
                 &:nth-child(1) {
-                    min-width: 85%;
+                    width: 85%;
                     cursor: pointer;
                 }
         
                 &:nth-child(2) {
                     display: flex;
                     justify-content: center;
-                    min-width: 15%;
+                    width: 15%;
                     
                     img {
                         max-width: 30px;
