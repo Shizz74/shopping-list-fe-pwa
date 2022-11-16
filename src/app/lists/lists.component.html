@@ -14,8 +14,7 @@
 </div>
 
 <!-- Delete Modal -->
-<!-- <div id="customModal" *ngIf="this.deleteModal"> -->
-<div id="customModal">
+<div id="customModal" *ngIf="this.deleteModal">
     <div class="modal-content">
         <header>
             <button class="btn btn--close" (click)="this.deleteModal = !this.deleteModal">
@@ -24,8 +23,7 @@
         </header>
         <article>
             <p>Czy na pewno chcesz usunąć listę?</p>
-            <!-- <strong>{{ this.listNameToDelete }}</strong> -->
-            <strong>this.listNameToDelete</strong>
+            <strong>{{ this.listNameToDelete }}</strong>
         </article>
         <footer>
             <button type="button" class="btn btn--decline" (click)="this.deleteModal = !this.deleteModal;">Nie</button>
