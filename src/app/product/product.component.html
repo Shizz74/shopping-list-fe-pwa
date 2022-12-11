@@ -1,4 +1,43 @@
-<div class="container">
+<div class="table_container" *ngIf="products">
+    <label for="search"></label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Wyszukaj produktu" #input>
+    <nav>
+        <div class="nav_header" (click)="sortList(this.products, this.sortDirection)">Nazwa</div>
+        <div class="nav_header">Usuń</div>
+    </nav>
+    <main>
+        <div *ngFor="let product of products" class="table_row" [ngStyle]="{'border-left': product.categoryId.color ? '4px solid' + product.categoryId.color : '4px solid blue'}">
+            <div class="table_column" (click)="goToProductView(product._id)">{{product.name}}</div>
+            <div class="table_column">
+                <img src="./../../assets/icons/plus_white.png" alt="" (click)="openDeleteModal(product._id)">
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Delete Modal -->
+<div id="customModal" *ngIf="this.deleteModal">
+    <div class="modal-content">
+        <header>
+            <button class="btn btn--close" (click)="this.deleteModal = !this.deleteModal">
+                <img src="./../../assets/icons/plus_black.png" alt="">
+            </button>
+        </header>
+        <article>
+            <p>Czy na pewno chcesz usunąć produkt?</p>
+            <strong>{{ this.productNameToRemove }}</strong>
+        </article>
+        <footer>
+            <button type="button" class="btn btn--decline" (click)="this.deleteModal = !this.deleteModal;">Nie</button>
+            <button type="button" class="btn btn--accept" (click)="deleteProduct()">Tak</button>
+        </footer>
+    </div>
+</div>
+<!-- Delete Modal -->
+
+
+
+<!-- <div class="container">
     <div class="row d-flex justify-content-between w-100">
         <mat-form-field class="col-6 col-md-3" appearance="standard">
             <mat-label>Wyszukaj produkt</mat-label>
@@ -33,11 +72,11 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-</div>
+</div> -->
 
 
 <!-- Delete modal  -->
-<ng-template #content let-modal>
+<!-- <ng-template #content let-modal>
     <div class="modal-header">
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
@@ -48,6 +87,6 @@
         <button type="button" class="btn btn-primary" (click)="modal.close('Click cancel')">Niet</button>
         <button type="button" class="btn btn-success" (click)="delete(); modal.dismiss('Save click')">No pewka</button>
     </div>
-</ng-template>
+</ng-template> -->
 
 <!-- Delete modal  -->

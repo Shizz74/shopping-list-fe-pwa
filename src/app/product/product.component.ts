@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { Router } from "@angular/router"
 
 import { ProductService } from 'src/core/_service/product.service';
 import { Product } from '../../core/interface/product'
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-product',
@@ -13,61 +11,67 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class ProductComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'edit', 'delete'];
-  dataSource: Product[] | any;
-  faEdit = faEdit;
-  faTrash = faTrash
+  products: Product[] | any;
+  sortDirection = true;
   closeResult = '';
-  idToRemove= '';
+  productIdToRemove = '';
+  productNameToRemove = '';
+  deleteModal = false;
 
   constructor(
     private productService: ProductService,
-    private modalService: NgbModal
+    private router: Router
   ) { }
   
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe(
-      (res: any) => {
-         this.dataSource = new MatTableDataSource(res);
+      (res) => {
+        this.products = res;
       }
-    )
+      )
+    }
+
+  sortList(products, sortDirection) {
+    products.sort((a,b) => {
+      if (sortDirection === true) {
+        return a.name < b.name ? -1 : 1
+      } else {
+        return a.name < b.name ? 1 : -1
+      }
+    });
+    this.sortDirection = !this.sortDirection;
+    return products;
   }
-
-
-  delete() {
-    this.productService.deleteProduct(this.idToRemove).subscribe(
+    
+  applyFilter(event: Event) {
+    console.log((event.target as HTMLInputElement).value);
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.products.filter = filterValue.trim().toLowerCase();
+    console.log(this.products);
+  }
+    
+  deleteProduct() {
+    this.productService.deleteProduct(this.productIdToRemove).subscribe(
       res => {
         this.productService.getAllProducts().subscribe(res => {
-          this.dataSource = res;
-          this.closeResult = `Dismissed ${this.getDismissReason('Usunięcie produktu')}`;
+          this.products = res;
+          this.deleteModal = !this.deleteModal;
         })
       },
       error => {
-      console.log("bład");
+        console.log("bład");
       }
     )
   }
 
-  open(content: any, _id: string) {
-    this.idToRemove = _id;
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true}).result.then((result) => {
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+  goToProductView(_id: string) {
+    this.router.navigate(['/produkt-edycja', _id])
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+  openDeleteModal(_id: string) {
+    this.productIdToRemove = _id;
+    this.productNameToRemove = this.products.find(list => list._id === _id).name;
+    console.log(this.productNameToRemove);
+    this.deleteModal = !this.deleteModal;
   }
-
 }
