@@ -17,6 +17,7 @@ export class ProductComponent implements OnInit {
   productIdToRemove = '';
   productNameToRemove = '';
   deleteModal = false;
+  searchTerm: string;
 
   constructor(
     private productService: ProductService,
@@ -41,13 +42,6 @@ export class ProductComponent implements OnInit {
     });
     this.sortDirection = !this.sortDirection;
     return products;
-  }
-    
-  applyFilter(event: Event) {
-    console.log((event.target as HTMLInputElement).value);
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.products.filter = filterValue.trim().toLowerCase();
-    console.log(this.products);
   }
     
   deleteProduct() {

@@ -8,11 +8,11 @@ import { HttpClientModule } from '@angular/common/http';
 
 // Material imports
 import { MatTableModule } from '@angular/material/table';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 
 // Componets imports
 import { MenuComponent } from './menu/menu.component';
@@ -22,14 +22,15 @@ import { EditCategoryComponent } from './category/edit-category/edit-category.co
 import { ProductComponent } from './product/product.component';
 import { AddProductComponent } from './product/add-product/add-product.component';
 import { EditProductComponent } from './product/edit-product/edit-product.component';
+import { ListsComponent } from './lists/lists.component';
+import { AddListComponent } from './lists/add-list/add-list/add-list.component';
+import { EditListComponent } from './lists/edit-list/edit-list/edit-list.component';
+import { SearchfilterPipe } from './shared/pipe/searchfilter.pipe';
 
 // Third part imports
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { ListsComponent } from './lists/lists.component';
-import { AddListComponent } from './lists/add-list/add-list/add-list.component';
-import { EditListComponent } from './lists/edit-list/edit-list/edit-list.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { EditListComponent } from './lists/edit-list/edit-list/edit-list.compone
     EditProductComponent,
     ListsComponent,
     AddListComponent,
-    EditListComponent
+    EditListComponent,
+    SearchfilterPipe
   ],
   imports: [
     HttpClientModule,
@@ -52,6 +54,7 @@ import { EditListComponent } from './lists/edit-list/edit-list/edit-list.compone
     MatTableModule,
     FontAwesomeModule,
     ReactiveFormsModule,
+    FormsModule,
     Ng2SearchPipeModule,
     MatInputModule,
     BrowserAnimationsModule,

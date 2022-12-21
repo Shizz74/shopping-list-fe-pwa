@@ -2,5 +2,10 @@ export interface Product {
     _id: string;
     name: string;
     unit: string;
-    category: string;
+    categoryId: {
+        _id: string;
+        name: string;
+        color: string;
+        date: Date;
+    };
 }
