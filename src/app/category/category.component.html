@@ -1,45 +1,34 @@
-<div class="container">
-  <div class="w-100" style="background-color: red;">
-    <a class="btn btn-success my-3 mr-3 float-end" routerLink="/nowa-kategoria">Dodaj nową kategorię</a>
-  </div>
-
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Nazwa </th>
-      <td mat-cell *matCellDef="let element" [ngStyle]="{'background': element.color ? element.color : 'blue'}"> {{element.name}} </td>
-    </ng-container>
-    <ng-container matColumnDef="edit">
-      <th mat-header-cell *matHeaderCellDef class="col-2 col-sm-1"> Edytuj </th>
-      <td mat-cell *matCellDef="let element" class="centered" [ngStyle]="{'background': element.color ? element.color : 'blue'}">
-         <a [routerLink]="['/kategoria-edycja', element._id]"> 
-           <fa-icon [icon]="faEdit" size="lg"></fa-icon> 
-          </a> 
-        </td>
-    </ng-container>
-    <ng-container matColumnDef="delete">
-      <th mat-header-cell *matHeaderCellDef class="col-2 col-sm-1"> Usuń </th>
-      <td mat-cell *matCellDef="let element" class="centered" [ngStyle]="{'background': element.color ? element.color : 'blue'}"> <fa-icon [icon]="faTrash" size="lg" (click)="open(content, element._id)"></fa-icon> </td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+<div class="table_container" *ngIf="category">
+  <nav>
+      <div class="nav_header" (click)="sortList(this.category, this.sortDirection)">Nazwa</div>
+      <div class="nav_header">Usuń</div>
+  </nav>
+  <main>
+      <div *ngFor="let cat of category" class="table_row" [ngStyle]="{'border-left': cat.color ? '4px solid' + cat.color : '4px solid blue'}">
+          <div class="table_column" (click)="goToCategoryView(cat._id)">{{cat.name}}</div>
+          <div class="table_column">
+              <img src="./../../assets/icons/plus_white.png" alt="" (click)="openDeleteModal(cat._id, cat.name)">
+          </div>
+      </div>
+  </main>
 </div>
 
 
-<!-- Delete modal  -->
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+<!-- Delete Modal -->
+<div id="customModal" *ngIf="this.deleteModal">
+  <div class="modal-content">
+      <header>
+          <button class="btn btn--close" (click)="this.deleteModal = !this.deleteModal">
+              <img src="./../../assets/icons/plus_black.png" alt="">
+          </button>
+      </header>
+      <article>
+          <p>Czy na pewno chcesz usunąć kategorię?</p>
+          <strong>{{ this.categoryNameToRemove }}</strong>
+      </article>
+      <footer>
+          <button type="button" class="btn btn--decline" (click)="this.deleteModal = !this.deleteModal;">Nie</button>
+          <button type="button" class="btn btn--accept" (click)="deleteCategory()">Tak</button>
+      </footer>
   </div>
-  <div class="modal-body">
-    <p>Czy na pewno chcesz usunąć kategorię?</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="modal.close('Click cancel')">Niet</button>
-    <button type="button" class="btn btn-success" (click)="delete(); modal.dismiss('Save click')">No pewka</button>
-  </div>
-</ng-template>
-
-<!-- Delete modal  -->
+</div>

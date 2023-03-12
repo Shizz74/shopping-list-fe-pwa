@@ -65,7 +65,6 @@ export class ProductComponent implements OnInit {
   openDeleteModal(_id: string) {
     this.productIdToRemove = _id;
     this.productNameToRemove = this.products.find(list => list._id === _id).name;
-    console.log(this.productNameToRemove);
     this.deleteModal = !this.deleteModal;
   }
 }

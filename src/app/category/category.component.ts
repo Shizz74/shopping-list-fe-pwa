@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { Router } from "@angular/router"
 
 import { CategoryService } from 'src/core/_service/category.service';
 import { Category } from 'src/core/interface/category';
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
@@ -11,31 +10,44 @@ import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 })
 export class CategoryComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'edit', 'delete'];
-  dataSource: Category[] | any;
-  faEdit = faEdit;
-  faTrash = faTrash
+  category: Category[];
+  sortDirection = true;
   closeResult = '';
-  idToRemove= '';
+  categoryIdToRemove = '';
+  categoryNameToRemove: string;
+  deleteModal = false;
+  searchTerm: string;
   
 
   constructor(
     private catService : CategoryService,
-    private modalService: NgbModal
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.catService.getAllCategories().subscribe(res => {
-      this.dataSource = res;
+      this.category = res;
     })
   }
 
-  delete() {
-    this.catService.deleteCategory(this.idToRemove).subscribe(
+  sortList(cat, sortDirection) {
+    cat.sort((a,b) => {
+      if (sortDirection === true) {
+        return a.name < b.name ? -1 : 1
+      } else {
+        return a.name < b.name ? 1 : -1
+      }
+    });
+    this.sortDirection = !this.sortDirection;
+    return cat;
+  }
+
+  deleteCategory() {
+    this.catService.deleteCategory(this.categoryIdToRemove).subscribe(
       res => {
         this.catService.getAllCategories().subscribe(res => {
-          this.dataSource = res;
-          this.closeResult = `Dismissed ${this.getDismissReason('Usunięcie kategorii')}`;
+          this.category = res;
+          this.deleteModal = !this.deleteModal;
         })
       },
       error => {
@@ -44,23 +56,13 @@ export class CategoryComponent implements OnInit {
     )
   }
 
-  open(content: any, _id: string) {
-    this.idToRemove = _id;
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true}).result.then((result) => {
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+  goToCategoryView(_id: string) {
+    this.router.navigate(['/kategoria-edycja', _id])
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+  openDeleteModal(_id: string, name: string) {
+    this.categoryIdToRemove = _id;
+    this.categoryNameToRemove = name;
+    this.deleteModal = !this.deleteModal;
   }
-
-
 }
