@@ -14,7 +14,7 @@ export class ProductService {
   ) { }
 
   getAllProducts() {
-    return this.http.get(env.apiUrl + '/products');
+    return this.http.get<Product[]>(env.apiUrl + '/products');
   }
 
   saveProduct(body: Product){

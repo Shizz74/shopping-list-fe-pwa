@@ -1,1 +1,24 @@
-<p>edit-list works!</p>
+<!-- <ng-container *ngIf="!openProductsModal; else productsList"> -->
+    <button (click)="openProductsModalFn()">
+        <img width="35px" src="./../../assets/icons/plus_white.png" alt="">
+    </button>
+<!-- </ng-container> -->
+
+<!-- <ng-template #productsList> -->
+    <button (click)="openProductsModalFn()">
+        <img width="35px" src="./../../assets/icons/plus_white.png" alt="">
+    </button>
+
+    <div class="table_container" *ngIf="products">
+        <label for="search"></label>
+        <input class="search_input" [(ngModel)]="searchTerm" placeholder="Wyszukaj produktu">
+        <main>
+            <div *ngFor="let product of products | searchfilter: searchTerm" class="table_row" [ngStyle]="{'border-left': product.categoryId.color ? '4px solid' + product.categoryId.color : '4px solid blue'}">
+                <div class="table_column">{{product.name}}{{product.categoryId.name}}</div>
+                <div class="table_column">
+                    <!-- <img src="./../../assets/icons/plus_white.png" alt="" (click)="openAddModal(product._id)"> -->
+                </div>
+            </div>
+        </main>
+    </div>
+<!-- </ng-template> -->
