@@ -25,23 +25,14 @@ export class EditListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.categoryService.getAllCategories().subscribe(
-      res => {
-        this.category = res
-        console.log(this.category)
-      }
-    )
-    this.getListOfProducts();
-    // this.newSort();
 
-  }
+   }
 
   openProductsModalFn() {
     this.openProductsModal = !this.openProductsModal;
-
+ 
     if(this.openProductsModal) {
       this.getListOfProducts();
-      this.sortList(this.products);
     }
   }
 
@@ -52,10 +43,7 @@ export class EditListComponent implements OnInit {
       .subscribe(
         res => {
           this.products = res;
-        }, err => {
-          console.log(err);
-        }, () => {
-          this.newSort();
+          this.sortList(this.products);
         }
       )
     }
@@ -63,22 +51,14 @@ export class EditListComponent implements OnInit {
 
   sortList(products) {
     products.sort((a,b) => {
-        return a.name < b.name ? -1 : 1
+        if (a.categoryId.name === b.categoryId.name){
+          console.log('1')
+          return a.name < b.name ? -1 : 1
+        } else {
+          console.log('2')
+          return a.categoryId.name < b.categoryId.name ? -1 : 1
+        }
     });
-  }
-
-  newSort() {
-    this.category.forEach(e => {
-      this.products.sort((a,b) => {
-        return a.name < b.name ? -1 : 1
-      });
-      this.newProducts = this.products.filter(item => item.categoryId.name === e.name)
-      // this.newProducts = this.products.filter(item => item.categoryId.name === e.name)
-      // this.newProducts2.push(this.newProducts);
-      merge(this.newProducts, this.newProducts2).subscribe();
-      console.log(this.newProducts);
-    })
-    
   }
 
 }
