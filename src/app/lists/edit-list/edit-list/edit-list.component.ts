@@ -18,6 +18,8 @@ export class EditListComponent implements OnInit {
   products: Product[];
   searchTerm: string;
   category: Category[];
+  addModalOpen: boolean = false;
+  addedProduct: Product;
 
   constructor(
     private productService: ProductService,
@@ -36,6 +38,14 @@ export class EditListComponent implements OnInit {
     }
   }
 
+  openAddModal(product: Product) {
+    this.addModalOpen = true;
+    this.addedProduct = product;
+  }
+
+  closeAddModal() {
+    this.addModalOpen = false;
+  }
 
   getListOfProducts() {
     if(!this.products) {
@@ -52,10 +62,8 @@ export class EditListComponent implements OnInit {
   sortList(products) {
     products.sort((a,b) => {
         if (a.categoryId.name === b.categoryId.name){
-          console.log('1')
           return a.name < b.name ? -1 : 1
         } else {
-          console.log('2')
           return a.categoryId.name < b.categoryId.name ? -1 : 1
         }
     });

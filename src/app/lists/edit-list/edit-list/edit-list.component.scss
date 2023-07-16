@@ -1,0 +1,13 @@
+.checkbox {
+    width: 25px;
+    aspect-ratio: 1/1;
+}
+
+.add_product {
+    background-color: var(--accept-color);
+    border-top: 1px solid #ffffff29;
+
+    img {
+        transform: rotate(0deg) !important;
+    }
+}
