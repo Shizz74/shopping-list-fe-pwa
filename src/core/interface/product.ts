@@ -3,6 +3,7 @@ export interface Product {
     name: string;
     unit: string;
     amount: number;
+    amountToBuy: number;
     categoryId: {
         _id: string;
         name: string;

@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { List } from '../interface/list'
 import { env } from '../../environments/environment'
 import { Observable } from 'rxjs';
+import { Product } from '../interface/product';
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +33,9 @@ export class ListsService {
 
   editList(_id: string, body: List){
     return this.http.put(`${env.apiUrl}/list/update/${_id}`, body);
+  }
+
+  addProductToList(_id: string, body: Product){
+    return this.http.put(`${env.apiUrl}/list/add-product/${_id}`, body);
   }
 }

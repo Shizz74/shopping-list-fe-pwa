@@ -4,6 +4,8 @@ import { Category } from 'src/core/interface/category';
 import { Product } from 'src/core/interface/product';
 import { CategoryService } from 'src/core/_service/category.service';
 import { ProductService } from 'src/core/_service/product.service';
+import { ListsService } from 'src/core/_service/lists.service';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-list',
@@ -20,13 +22,23 @@ export class EditListComponent implements OnInit {
   category: Category[];
   addModalOpen: boolean = false;
   addedProduct: Product;
+  listId: string;
+  listOfProductsToBuy: any[] = [];
 
   constructor(
     private productService: ProductService,
-    private categoryService: CategoryService
+    private listsService: ListsService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.listId = event.url.split('/')[2];
+        console.log(this.listId);
+      }
+    })
 
    }
 
@@ -38,14 +50,21 @@ export class EditListComponent implements OnInit {
     }
   }
 
-  openAddModal(product: Product) {
-    this.addModalOpen = true;
-    this.addedProduct = product;
-  }
+  // openAddModal(product: Product) {
+  //   this.addModalOpen = true;
+  //   this.addedProduct = product;
+  // }
 
-  closeAddModal() {
-    this.addModalOpen = false;
-  }
+  // closeAddModal() {
+  //   this.addModalOpen = false;
+  // }
+
+  // addProductToList() {
+  //   this.listsService.addProductToList(this.listId, this.addedProduct)
+  //   .subscribe(
+  //     res => {}
+  //   )
+  // }
 
   getListOfProducts() {
     if(!this.products) {
@@ -58,6 +77,27 @@ export class EditListComponent implements OnInit {
       )
     }
   }
+
+  addToList(product: Product) {
+    this.products[this.products.findIndex(e => e._id === product._id)].amountToBuy += product.amount;
+    
+    if(!this.listOfProductsToBuy.some(e => e._id === product._id)) {
+      this.listOfProductsToBuy.push(product);
+    }    
+  }
+
+  removeFromList(product: Product) {
+    if(product.amountToBuy < 0) return;
+
+    this.products[this.products.findIndex(e => e._id === product._id)].amountToBuy -= product.amount;
+
+    if(product.amountToBuy < 1) {
+      this.listOfProductsToBuy.splice(this.listOfProductsToBuy.findIndex(e => e._id === product._id), 1);
+    }
+
+    console.log(this.listOfProductsToBuy);
+  }
+
 
   sortList(products) {
     products.sort((a,b) => {
