@@ -23,7 +23,7 @@ export class EditListComponent implements OnInit {
   addModalOpen: boolean = false;
   addedProduct: Product;
   listId: string;
-  listOfProductsToBuy: any[] = [];
+  listOfProductsToBuy: Product[] = [];
 
   constructor(
     private productService: ProductService,
@@ -36,16 +36,20 @@ export class EditListComponent implements OnInit {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.listId = event.url.split('/')[2];
-        console.log(this.listId);
       }
     })
 
-   }
+    this.listsService.getSpecList('64136fb2c7a128fa741a85e4').subscribe(res => {
+      this.listOfProductsToBuy = res.products;
+      console.log(this.listOfProductsToBuy);
+    })
+
+  }
 
   openProductsModalFn() {
-    this.openProductsModal = !this.openProductsModal;
+    this.addModalOpen = !this.addModalOpen;
  
-    if(this.openProductsModal) {
+    if(this.addModalOpen) {
       this.getListOfProducts();
     }
   }
@@ -65,6 +69,11 @@ export class EditListComponent implements OnInit {
   //     res => {}
   //   )
   // }
+
+  saveList() {
+    this.listsService.addProductToList('64136fb2c7a128fa741a85e4', this.listOfProductsToBuy).subscribe(res => {console.log(res)});
+    this.openProductsModalFn();
+  }
 
   getListOfProducts() {
     if(!this.products) {

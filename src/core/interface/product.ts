@@ -4,6 +4,7 @@ export interface Product {
     unit: string;
     amount: number;
     amountToBuy: number;
+    active: boolean;
     categoryId: {
         _id: string;
         name: string;

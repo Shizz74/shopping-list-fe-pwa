@@ -1,42 +1,37 @@
-<!-- <ng-container *ngIf="!openProductsModal; else productsList"> -->
-    <!-- <button (click)="openProductsModalFn()">
-        <img width="35px" src="./../../assets/icons/plus_white.png" alt="">
-    </button> -->
-<!-- </ng-container> -->
+<button (click)="openProductsModalFn()">
+    <img width="35px" src="./../../assets/icons/plus_white.png" alt="">
+</button>
 
-<!-- <ng-template #productsList> -->
-    <button (click)="openProductsModalFn()">
-        <img width="35px" src="./../../assets/icons/plus_white.png" alt="">
-    </button>
+<button (click)="saveList()" *ngIf="products && addModalOpen">save</button>
 
-    <div class="table_container" *ngIf="products && !addModalOpen">
-        <label for="search"></label>
-        <input class="search_input" [(ngModel)]="searchTerm" placeholder="Wyszukaj produktu">
-        <main>
-            <div *ngFor="let product of products | searchfilter: searchTerm" class="table_row" [ngStyle]="{'border-left': product.categoryId.color ? '4px solid' + product.categoryId.color : '4px solid blue'}">
-                <div class="table_column" (click)="addToList(product)">
-                    <span class="amount">({{product.amount}}/{{product.amountToBuy}})&nbsp;</span>
-                    {{product.name}}
-                </div>
-                <div class="table_column remove_product" (click)="removeFromList(product)">
-                    <img src="./../../assets/icons/plus_black.png" alt="Remove product">
-                </div>
+<div class="table_container" *ngIf="!addModalOpen">
+    <label for="search"></label>
+    <input class="search_input" [(ngModel)]="searchTerm" placeholder="Wyszukaj produktu">
+    <main>
+        <div *ngFor="let product of listOfProductsToBuy | searchfilter: searchTerm" class="table_row" [ngStyle]="{'border-left': product.categoryId.color ? '4px solid' + product.categoryId.color : '4px solid blue'}">
+            <div class="table_column" (click)="addToList(product)">
+                <span class="amount">({{product.amount}}/{{product.amountToBuy}})&nbsp;</span>
+                {{product.name}}
             </div>
-        </main>
-    </div>
-
-    <!-- <ng-container *ngIf="addModalOpen">
-        <div class="table_container">
-            <h1>Dodaj produkt do listy</h1>
-            <span><b>{{addedProduct.name}}</b></span>
-            <div class="unit_container">
-                <label for="amount">{{addedProduct.unit}}</label>
-                <input name="amount" type="text" [(ngModel)]="addedProduct.amount">
+            <div class="table_column remove_product" (click)="removeFromList(product)">
+                <img src="./../../assets/icons/plus_black.png" alt="Remove product">
             </div>
-            <div class="button-section">
-                <button type="button" (click)="closeAddModal()" class="btn btn--decline">Jednak nie</button>
-                <button type="button" (click)="addProductToList()" class="btn btn--accept">Dodaj</button>
-              </div>
         </div>
-    </ng-container> -->
-<!-- </ng-template> -->
+    </main>
+</div>
+
+<div class="table_container" *ngIf="products && addModalOpen">
+    <label for="search"></label>
+    <input class="search_input" [(ngModel)]="searchTerm" placeholder="Wyszukaj produktu">
+    <main>
+        <div *ngFor="let product of products | searchfilter: searchTerm" class="table_row" [ngStyle]="{'border-left': product.categoryId.color ? '4px solid' + product.categoryId.color : '4px solid blue'}">
+            <div class="table_column" (click)="addToList(product)">
+                <span class="amount">({{product.amount}}/{{product.amountToBuy}})&nbsp;</span>
+                {{product.name}}
+            </div>
+            <div class="table_column remove_product" (click)="removeFromList(product)">
+                <img src="./../../assets/icons/plus_black.png" alt="Remove product">
+            </div>
+        </div>
+    </main>
+</div>

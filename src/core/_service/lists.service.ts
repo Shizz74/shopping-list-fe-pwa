@@ -28,14 +28,14 @@ export class ListsService {
   }
 
   getSpecList(_id: string) {
-    return this.http.get(`${env.apiUrl}/list/${_id}`)
+    return this.http.get<List>(`${env.apiUrl}/list/${_id}`)
   }
 
   editList(_id: string, body: List){
     return this.http.put(`${env.apiUrl}/list/update/${_id}`, body);
   }
 
-  addProductToList(_id: string, body: Product){
+  addProductToList(_id: string, body: Product[]){
     return this.http.put(`${env.apiUrl}/list/add-product/${_id}`, body);
   }
 }
