@@ -5,8 +5,6 @@
 <button (click)="saveList()" *ngIf="products && addModalOpen">save</button>
 
 <div class="table_container" *ngIf="!addModalOpen">
-    <label for="search"></label>
-    <input class="search_input" [(ngModel)]="searchTerm" placeholder="Wyszukaj produktu">
     <main>
         <div *ngFor="let product of listOfProductsToBuy | searchfilter: searchTerm" class="table_row" [ngStyle]="{'border-left': product.categoryId.color ? '4px solid' + product.categoryId.color : '4px solid blue'}">
             <div class="table_column" (click)="addToList(product)">
