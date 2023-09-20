@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from 'src/core/interface/category';
 import { Product } from 'src/core/interface/product';
-import { CategoryService } from 'src/core/_service/category.service';
 import { ProductService } from 'src/core/_service/product.service';
 import { ListsService } from 'src/core/_service/lists.service';
 import { ActivatedRoute  } from '@angular/router';
@@ -15,7 +14,6 @@ export class EditListComponent implements OnInit {
 
   products: Product[];
   searchTerm: string;
-  category: Category[];
   addModalOpen: boolean = false;
   listId: any;
   listOfProductsToBuy: Product[] = [];
@@ -23,7 +21,6 @@ export class EditListComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private listsService: ListsService,
-    private categoryService: CategoryService,
     private route: ActivatedRoute
   ) { }
 
@@ -78,6 +75,7 @@ export class EditListComponent implements OnInit {
     if(!this.listOfProductsToBuy.some(e => e._id === product._id)) {
       this.listOfProductsToBuy.push(product);
     }    
+
   }
 
   removeFromList(product: Product) {
