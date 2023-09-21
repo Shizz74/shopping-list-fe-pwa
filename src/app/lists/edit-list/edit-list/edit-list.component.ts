@@ -50,7 +50,9 @@ export class EditListComponent implements OnInit {
 
   saveList() {
     this.listsService.addProductToList(this.listId, this.listOfProductsToBuy).subscribe(res => {console.log(res)});
-    this.openProductsModalFn();
+    if(this.addModalOpen) {
+      this.openProductsModalFn();
+    }
   }
 
   getListOfProducts() {

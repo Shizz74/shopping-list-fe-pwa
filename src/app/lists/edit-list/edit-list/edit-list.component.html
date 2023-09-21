@@ -2,13 +2,15 @@
     <label for="search"></label>
     <input class="search_input" [(ngModel)]="searchTerm" placeholder="Wyszukaj produktu" *ngIf="addModalOpen">
     <button class="add_btn" (click)="openProductsModalFn()">
-        <img width="20px" src="./../../assets/icons/plus_black.png" alt="" *ngIf="!addModalOpen">
+        <img width="20px" src="assets/icons/plus_black.png" alt="" *ngIf="!addModalOpen">
         <span *ngIf="addModalOpen">Wróć</span>
     </button>
-    <button class="save_btn" (click)="saveList()">
+    <button class="save_btn"  (click)="saveList()">
         Zapisz
     </button>
 </div>
+
+
 
 <div class="table_container" *ngIf="!addModalOpen">
     <main>
@@ -18,7 +20,7 @@
                 {{product.name}}
             </div>
             <div class="table_column remove_product" (click)="removeFromList(product)">
-                <img src="./../../assets/icons/plus_black.png" alt="Remove product">
+                <img src="assets/icons/plus_black.png" alt="Remove product">
             </div>
         </div>
     </main>
@@ -32,7 +34,7 @@
                 {{product.name}}
             </div>
             <div class="table_column remove_product" (click)="removeFromList(product)">
-                <img src="./../../assets/icons/plus_black.png" alt="Remove product">
+                <img src="assets/icons/plus_black.png" alt="Remove product">
             </div>
         </div>
     </main>
