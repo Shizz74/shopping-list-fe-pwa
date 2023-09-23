@@ -8,6 +8,15 @@
     color: darkgrey;
 }
 
+.already_bought{
+    max-width: 70px;
+}
+
+.bought {
+    background: black;
+    color: white;
+}
+
 .remove_product {
     background-color: var(--decline-color);
     border-top: 1px solid #ffffff29;

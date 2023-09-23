@@ -15,13 +15,34 @@
 <div class="table_container" *ngIf="!addModalOpen">
     <main>
         <div *ngFor="let product of listOfProductsToBuy | searchfilter: searchTerm" class="table_row" [ngStyle]="{'border-left': product.categoryId.color ? '4px solid' + product.categoryId.color : '4px solid blue'}">
-            <div class="table_column" (click)="addToList(product)">
+            <div class="table_column" (click)="addToList(product)" *ngIf="product.active === true">
+                <span class="amount">({{product.amount}}/{{product.amountToBuy}})&nbsp;</span>
+                {{product.name}}
+            </div>
+            <div class="table_column remove_product" (click)="removeFromList(product)" *ngIf="product.active === true">
+                <img src="assets/icons/plus_black.png" alt="Remove product">
+            </div>
+            <button class="table_column already_bought" (click)="alreadyBought(product)" *ngIf="product.active === true">
+                <span>Kupione</span>
+            </button>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        
+        <div *ngFor="let product of listOfProductsBought | searchfilter: searchTerm" class="table_row" [ngStyle]="{'border-left': product.categoryId.color ? '4px solid' + product.categoryId.color : '4px solid blue'}">
+            <div class="table_column" (click)="addToList(product)" [ngClass]="{'bought' : product.active === false}">
                 <span class="amount">({{product.amount}}/{{product.amountToBuy}})&nbsp;</span>
                 {{product.name}}
             </div>
             <div class="table_column remove_product" (click)="removeFromList(product)">
                 <img src="assets/icons/plus_black.png" alt="Remove product">
             </div>
+            <button class="table_column already_bought" (click)="alreadyBought(product)" [ngClass]="{'bought' : product.active === false}">
+                <span *ngIf="product.active == false" style="color: white">Jednak nie</span>
+            </button>
         </div>
     </main>
 </div>

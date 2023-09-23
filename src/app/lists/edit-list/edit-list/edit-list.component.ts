@@ -17,6 +17,8 @@ export class EditListComponent implements OnInit {
   addModalOpen: boolean = false;
   listId: any;
   listOfProductsToBuy: Product[] = [];
+  listOfProductsBought: Product[] = [];
+  listOfProducts: Product[] = [];
 
   constructor(
     private productService: ProductService,
@@ -28,8 +30,11 @@ export class EditListComponent implements OnInit {
     this.listId = this.route.snapshot.paramMap.get('id');
 
     this.listsService.getSpecList(this.listId).subscribe(res => {
-      this.listOfProductsToBuy = res.products;
+      this.listOfProducts = res.products;
+      this.listOfProductsToBuy = res.products.filter(p => p.active === true);
+      this.listOfProductsBought = res.products.filter(p => p.active === false);
       this.sortList(this.listOfProductsToBuy);
+      this.sortList(this.listOfProductsBought);
     })
     this.getListOfProducts();
   }
@@ -39,17 +44,17 @@ export class EditListComponent implements OnInit {
 
     if(this.addModalOpen) {
       this.products.forEach((e, i) => {
-        if(this.listOfProductsToBuy.some((product) => product._id === e._id)) {
+        if(this.listOfProducts.some((product) => product._id === e._id)) {
           this.products.splice(i, 1);
         }
       });
     } else {
-      this.sortList(this.listOfProductsToBuy);
+      this.sortList(this.listOfProducts);
     }
   }
 
   saveList() {
-    this.listsService.addProductToList(this.listId, this.listOfProductsToBuy).subscribe(res => {console.log(res)});
+    this.listsService.addProductToList(this.listId, this.listOfProducts).subscribe(res => {console.log(res)});
     if(this.addModalOpen) {
       this.openProductsModalFn();
     }
@@ -71,11 +76,11 @@ export class EditListComponent implements OnInit {
     if(this.addModalOpen) {
       this.products[this.products.findIndex(e => e._id === product._id)].amountToBuy += product.amount;
     } else {
-      this.listOfProductsToBuy[this.listOfProductsToBuy.findIndex(e => e._id === product._id)].amountToBuy += product.amount;
+      this.listOfProducts[this.listOfProducts.findIndex(e => e._id === product._id)].amountToBuy += product.amount;
     }
     
-    if(!this.listOfProductsToBuy.some(e => e._id === product._id)) {
-      this.listOfProductsToBuy.push(product);
+    if(!this.listOfProducts.some(e => e._id === product._id)) {
+      this.listOfProducts.push(product);
     }    
 
   }
@@ -86,11 +91,25 @@ export class EditListComponent implements OnInit {
     if(this.addModalOpen) {
       this.products[this.products.findIndex(e => e._id === product._id)].amountToBuy -= product.amount;
     } else {
-      this.listOfProductsToBuy[this.listOfProductsToBuy.findIndex(e => e._id === product._id)].amountToBuy -= product.amount;
+      this.listOfProducts[this.listOfProducts.findIndex(e => e._id === product._id)].amountToBuy -= product.amount;
     }    
 
     if(product.amountToBuy < 1) {
+      this.listOfProducts.splice(this.listOfProducts.findIndex(e => e._id === product._id), 1);
+    }
+  }
+
+  alreadyBought(product: Product) {
+    if(product.active === true) {
+      this.listOfProducts[this.listOfProducts.findIndex(e => e._id === product._id)].active = false;
       this.listOfProductsToBuy.splice(this.listOfProductsToBuy.findIndex(e => e._id === product._id), 1);
+      this.listOfProductsBought.push(product);
+      this.sortList(this.listOfProductsBought);
+    } else{
+      this.listOfProducts[this.listOfProducts.findIndex(e => e._id === product._id)].active = true;
+      this.listOfProductsBought.splice(this.listOfProductsBought.findIndex(e => e._id === product._id), 1);
+      this.listOfProductsToBuy.push(product);
+      this.sortList(this.listOfProductsToBuy);
     }
   }
 
