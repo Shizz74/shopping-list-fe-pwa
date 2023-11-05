@@ -36,5 +36,45 @@
       "maxAge": "1d",
       "timeout": "5s"
     }
+  },
+  {
+    "name": "lists",
+    "urls": [ "https://gold-motionless-whale.cyclic.app/lists"],
+    "cacheConfig": {
+      "strategy": "freshness",
+      "maxSize": 10,
+      "maxAge": "1d",
+      "timeout": "5s"
+    }
+  },
+  {
+    "name": "list",
+    "urls": [ "https://gold-motionless-whale.cyclic.app/list"],
+    "cacheConfig": {
+      "strategy": "freshness",
+      "maxSize": 10,
+      "maxAge": "1d",
+      "timeout": "5s"
+    }
+  },
+  {
+    "name": "add-products",
+    "urls": [ "https://gold-motionless-whale.cyclic.app/list/add-product"],
+    "cacheConfig": {
+      "strategy": "freshness",
+      "maxSize": 10,
+      "maxAge": "1d",
+      "timeout": "5s"
+    }
+  },
+  {
+    "name": "category",
+    "urls": [ "https://gold-motionless-whale.cyclic.app/category"],
+    "cacheConfig": {
+      "strategy": "freshness",
+      "maxSize": 10,
+      "maxAge": "1d",
+      "timeout": "5s"
+    }
   }]
 }
