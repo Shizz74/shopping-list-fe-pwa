@@ -1,7 +1,7 @@
 {
   "configVersion": 1,
-  "timestamp": 1695660119685,
-  "index": "https://Shizz74.github.io/shopping-list-fe-pwa/index.html",
+  "timestamp": 1699288860028,
+  "index": "/index.html",
   "assetGroups": [
     {
       "name": "app",
@@ -11,42 +11,42 @@
         "ignoreVary": true
       },
       "urls": [
-        "https://Shizz74.github.io/shopping-list-fe-pwa/favicon.ico",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/index.html",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/main.55b5a49f8d4f64425a2e.js",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/manifest.webmanifest",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/polyfills.9c117432e1a82421c6e5.js",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/runtime.dcb2da61b285b768a0e4.js",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/scripts.b306dd7ae3694cfd8910.js",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/styles.a7a33ffc54721ce56dbe.css"
+        "/favicon.ico",
+        "/index.html",
+        "/main.0fc488809e1bb596e845.js",
+        "/manifest.webmanifest",
+        "/polyfills.9c117432e1a82421c6e5.js",
+        "/runtime.dcb2da61b285b768a0e4.js",
+        "/scripts.b306dd7ae3694cfd8910.js",
+        "/styles.a7a33ffc54721ce56dbe.css"
       ],
       "patterns": []
     },
     {
       "name": "assets",
-      "installMode": "lazy",
+      "installMode": "prefetch",
       "updateMode": "prefetch",
       "cacheQueryOptions": {
         "ignoreVary": true
       },
       "urls": [
-        "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/category_pink.png",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/category_white.png",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/icon-128x128.png",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/icon-144x144.png",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/icon-152x152.png",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/icon-192x192.png",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/icon-384x384.png",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/icon-512x512.png",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/icon-72x72.png",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/icon-96x96.png",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/list_pink.png",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/list_white.png",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/plus_black.png",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/plus_pink.png",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/plus_white.png",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/product_pink.png",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/product_white.png"
+        "/assets/icons/category_pink.png",
+        "/assets/icons/category_white.png",
+        "/assets/icons/icon-128x128.png",
+        "/assets/icons/icon-144x144.png",
+        "/assets/icons/icon-152x152.png",
+        "/assets/icons/icon-192x192.png",
+        "/assets/icons/icon-384x384.png",
+        "/assets/icons/icon-512x512.png",
+        "/assets/icons/icon-72x72.png",
+        "/assets/icons/icon-96x96.png",
+        "/assets/icons/list_pink.png",
+        "/assets/icons/list_white.png",
+        "/assets/icons/plus_black.png",
+        "/assets/icons/plus_pink.png",
+        "/assets/icons/plus_white.png",
+        "/assets/icons/product_pink.png",
+        "/assets/icons/product_white.png"
       ],
       "patterns": []
     }
@@ -65,34 +65,90 @@
         "ignoreVary": true
       },
       "version": 1
+    },
+    {
+      "name": "lists",
+      "patterns": [
+        "https:\\/\\/gold-motionless-whale\\.cyclic\\.app\\/lists"
+      ],
+      "strategy": "freshness",
+      "maxSize": 10,
+      "maxAge": 86400000,
+      "timeoutMs": 5000,
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "version": 1
+    },
+    {
+      "name": "list",
+      "patterns": [
+        "https:\\/\\/gold-motionless-whale\\.cyclic\\.app\\/list"
+      ],
+      "strategy": "freshness",
+      "maxSize": 10,
+      "maxAge": 86400000,
+      "timeoutMs": 5000,
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "version": 1
+    },
+    {
+      "name": "add-products",
+      "patterns": [
+        "https:\\/\\/gold-motionless-whale\\.cyclic\\.app\\/list\\/add-product"
+      ],
+      "strategy": "freshness",
+      "maxSize": 10,
+      "maxAge": 86400000,
+      "timeoutMs": 5000,
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "version": 1
+    },
+    {
+      "name": "category",
+      "patterns": [
+        "https:\\/\\/gold-motionless-whale\\.cyclic\\.app\\/category"
+      ],
+      "strategy": "freshness",
+      "maxSize": 10,
+      "maxAge": 86400000,
+      "timeoutMs": 5000,
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "version": 1
     }
   ],
   "hashTable": {
-    "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/category_pink.png": "e3bff7bde37ba9fcabf30198282e04b02b3c6b1b",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/category_white.png": "d539ccd2ffde15d5662319f23bfd5e509cb5156d",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/list_pink.png": "8867363f692fae137f035c48ee15a9248c7957ba",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/list_white.png": "c3d648ccc7257244ea69164a9a5f9678de317095",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/plus_black.png": "5d56277f81f308d5527c720d78709027b35df0cc",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/plus_pink.png": "43bfa573a034d3e505c84a6f0583c5615ec086e3",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/plus_white.png": "0aee38f593d38a88e24e962aac026cd36e3eab55",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/product_pink.png": "af2f878ae43e532bf46a157cb29ed03aa99f9a1f",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/product_white.png": "462afb5fcbcfe0ada79c8a8f5c459b3a466ddbd2",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/index.html": "3e96b0014592dc650d15940c99d058898af7c625",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/main.55b5a49f8d4f64425a2e.js": "00f3e4400ee2ae3c5cc4a922fc362f43a436ee11",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/manifest.webmanifest": "2b6eeff8dc74d43060107cba7bd8603d5d001894",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/polyfills.9c117432e1a82421c6e5.js": "057d0a48087196b9cc5d9685965135c5812df2d7",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/runtime.dcb2da61b285b768a0e4.js": "6b77246273f10ca007f23b21c88e477aec92518f",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/scripts.b306dd7ae3694cfd8910.js": "9d04f113d855b5f390a049eb7fa7c56ea2d30c56",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/styles.a7a33ffc54721ce56dbe.css": "d8cd08ee29e48d8be88d846be2067fb51f397b03"
+    "/assets/icons/category_pink.png": "e3bff7bde37ba9fcabf30198282e04b02b3c6b1b",
+    "/assets/icons/category_white.png": "d539ccd2ffde15d5662319f23bfd5e509cb5156d",
+    "/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "/assets/icons/list_pink.png": "8867363f692fae137f035c48ee15a9248c7957ba",
+    "/assets/icons/list_white.png": "c3d648ccc7257244ea69164a9a5f9678de317095",
+    "/assets/icons/plus_black.png": "5d56277f81f308d5527c720d78709027b35df0cc",
+    "/assets/icons/plus_pink.png": "43bfa573a034d3e505c84a6f0583c5615ec086e3",
+    "/assets/icons/plus_white.png": "0aee38f593d38a88e24e962aac026cd36e3eab55",
+    "/assets/icons/product_pink.png": "af2f878ae43e532bf46a157cb29ed03aa99f9a1f",
+    "/assets/icons/product_white.png": "462afb5fcbcfe0ada79c8a8f5c459b3a466ddbd2",
+    "/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
+    "/index.html": "df25c9efafe8f1ae53715cae4e40ee7d59570002",
+    "/main.0fc488809e1bb596e845.js": "341fa18836fbac6dc07d4a63c2d33570e8158ec4",
+    "/manifest.webmanifest": "2b6eeff8dc74d43060107cba7bd8603d5d001894",
+    "/polyfills.9c117432e1a82421c6e5.js": "057d0a48087196b9cc5d9685965135c5812df2d7",
+    "/runtime.dcb2da61b285b768a0e4.js": "6b77246273f10ca007f23b21c88e477aec92518f",
+    "/scripts.b306dd7ae3694cfd8910.js": "9d04f113d855b5f390a049eb7fa7c56ea2d30c56",
+    "/styles.a7a33ffc54721ce56dbe.css": "d8cd08ee29e48d8be88d846be2067fb51f397b03"
   },
   "navigationUrls": [
     {
