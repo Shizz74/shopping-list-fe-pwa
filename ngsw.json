@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1699796553032,
+  "timestamp": 1699825448610,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -56,62 +56,6 @@
       "name": "products",
       "patterns": [
         "https:\\/\\/gold-motionless-whale\\.cyclic\\.app\\/products"
-      ],
-      "strategy": "freshness",
-      "maxSize": 10,
-      "maxAge": 86400000,
-      "timeoutMs": 5000,
-      "cacheQueryOptions": {
-        "ignoreVary": true
-      },
-      "version": 1
-    },
-    {
-      "name": "lists",
-      "patterns": [
-        "https:\\/\\/gold-motionless-whale\\.cyclic\\.app\\/lists"
-      ],
-      "strategy": "freshness",
-      "maxSize": 10,
-      "maxAge": 86400000,
-      "timeoutMs": 5000,
-      "cacheQueryOptions": {
-        "ignoreVary": true
-      },
-      "version": 1
-    },
-    {
-      "name": "list",
-      "patterns": [
-        "https:\\/\\/gold-motionless-whale\\.cyclic\\.app\\/list"
-      ],
-      "strategy": "freshness",
-      "maxSize": 10,
-      "maxAge": 86400000,
-      "timeoutMs": 5000,
-      "cacheQueryOptions": {
-        "ignoreVary": true
-      },
-      "version": 1
-    },
-    {
-      "name": "add-products",
-      "patterns": [
-        "https:\\/\\/gold-motionless-whale\\.cyclic\\.app\\/list\\/add-product"
-      ],
-      "strategy": "freshness",
-      "maxSize": 10,
-      "maxAge": 86400000,
-      "timeoutMs": 5000,
-      "cacheQueryOptions": {
-        "ignoreVary": true
-      },
-      "version": 1
-    },
-    {
-      "name": "category",
-      "patterns": [
-        "https:\\/\\/gold-motionless-whale\\.cyclic\\.app\\/category"
       ],
       "strategy": "freshness",
       "maxSize": 10,
