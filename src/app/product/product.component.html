@@ -8,8 +8,8 @@
     <main>
         <div *ngFor="let product of products | searchfilter: searchTerm" class="table_row" [ngStyle]="{'border-left': product.categoryId.color ? '4px solid' + product.categoryId.color : '4px solid blue'}">
             <div class="table_column" (click)="goToProductView(product._id)">{{product.name}}</div>
-            <div class="table_column">
-                <img src="assets/icons/plus_white.png" alt="" (click)="openDeleteModal(product._id)">
+            <div class="table_column delete_product">
+                <img src="assets/icons/minus-64-white.png" alt="" (click)="openDeleteModal(product._id)">
             </div>
         </div>
     </main>
@@ -20,7 +20,7 @@
     <div class="modal-content">
         <header>
             <button class="btn btn--close" (click)="this.deleteModal = !this.deleteModal">
-                <img src="assets/icons/plus_black.png" alt="">
+                X
             </button>
         </header>
         <article>

@@ -2,29 +2,32 @@
     <label for="search"></label>
     <input class="search_input" [(ngModel)]="searchTerm" placeholder="Wyszukaj produktu" *ngIf="addModalOpen">
     <button class="add_btn" (click)="openProductsModalFn()">
-        <img width="20px" src="assets/icons/plus_black.png" alt="" *ngIf="!addModalOpen">
+        <img width="30px" src="assets/icons/plus-64-green.png" alt="" *ngIf="!addModalOpen">
         <span *ngIf="addModalOpen">Wróć</span>
     </button>
-    <button class="save_btn"  (click)="saveList()">
-        Zapisz
+    <button (click)="saveList()">
+        <img width="30px" src="assets/icons/save-48-green.png" alt="">
     </button>
 </div>
 
 
 
-<div class="table_container" *ngIf="!addModalOpen">
+<div class="table_container fixed_header" *ngIf="!addModalOpen">
     <main>
         <div *ngFor="let product of listOfProductsToBuy | searchfilter: searchTerm" class="table_row" [ngStyle]="{'border-left': product.categoryId.color ? '4px solid' + product.categoryId.color : '4px solid blue'}">
-            <div class="table_column" (click)="addToList(product)" *ngIf="product.active === true">
-                <span class="amount">({{product.amount}}/{{product.amountToBuy}})&nbsp;</span>
-                {{product.name}}
+            <div class="table_column name_column" (click)="addToList(product)" *ngIf="product.active === true">
+                <div>
+                    <span class="amount">({{product.amount}}/{{product.amountToBuy}})&nbsp;</span>
+                    {{product.name}}
+                </div>
+                <img src="assets/icons/plus-64-white.png" alt="">
             </div>
             <div class="table_column remove_product" (click)="removeFromList(product)" *ngIf="product.active === true">
-                <img src="assets/icons/plus_black.png" alt="Remove product">
+                <img src="assets/icons/minus-64-white.png" alt="Remove product">
             </div>
-            <button class="table_column already_bought" (click)="alreadyBought(product)" *ngIf="product.active === true">
-                <span>Kupione</span>
-            </button>
+            <div class="table_column already_bought" (click)="alreadyBought(product)" *ngIf="product.active === true">
+                <img src="assets/icons/checkmark-64-white.png" alt="Already bought">
+            </div>
         </div>
 
         <br>
@@ -33,15 +36,12 @@
         <br>
         
         <div *ngFor="let product of listOfProductsBought | searchfilter: searchTerm" class="table_row" [ngStyle]="{'border-left': product.categoryId.color ? '4px solid' + product.categoryId.color : '4px solid blue'}">
-            <div class="table_column" (click)="addToList(product)" [ngClass]="{'bought' : product.active === false}">
+            <div class="table_column" [ngClass]="{'bought' : product.active === false}">
                 <span class="amount">({{product.amount}}/{{product.amountToBuy}})&nbsp;</span>
                 {{product.name}}
             </div>
-            <div class="table_column remove_product" (click)="removeFromList(product)">
-                <img src="assets/icons/plus_black.png" alt="Remove product">
-            </div>
             <button class="table_column already_bought" (click)="alreadyBought(product)" [ngClass]="{'bought' : product.active === false}">
-                <span *ngIf="product.active == false" style="color: white">Jednak nie</span>
+                <img src="assets/icons/minus-64-white.png" alt="Already bought">
             </button>
         </div>
     </main>

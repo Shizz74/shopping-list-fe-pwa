@@ -44,13 +44,17 @@ select:valid {
 
 .table_header{
     width: 100%;
+    position: fixed;
     max-width: 800px;
     margin: 0 auto;
+    margin-left: calc(50% - 408px);
     display: flex;
     align-items: center;
     justify-content: end;
     gap: 15px;
     padding: 15px 0;
+    z-index: 3;
+    background: var(--bg-color);
 
     .search_input {
         padding: 10px;
@@ -59,24 +63,12 @@ select:valid {
     }
 
     button {
-        padding: 7px;
         border: none;
         cursor: pointer;
         background: rgba(66, 68, 90, 0);
-        height: 37px;
         max-height: 37px;
         color: white;
         
-        &.save_btn {
-            background: var(--accept-color);
-            font-weight: bold;
-            margin-right: 15px;
-        }
-
-        &.add_btn {
-            border: 1px solid var(--accept-color);
-        }
-
         &.save_disabled{
             background: grey;
             cursor: no-drop;
@@ -92,6 +84,10 @@ select:valid {
     color: var(--fonts-color);
     text-align: end;
 
+    &.fixed_header{
+        margin-top: 67px;
+    }
+
     h1 {
         margin: 10px 0;
         font-weight: 500;
@@ -106,12 +102,19 @@ select:valid {
             border-bottom: 1px solid var(--fonts-color);
             font-weight: 500;
             font-size: larger;
+            cursor: pointer;
 
             &:nth-child(1) {
                 width: 85%;
-                cursor: pointer;
             }
+
             &:nth-child(2) {
+                display: flex;
+                justify-content: center;
+                width: 15%;
+            }
+
+            &:nth-child(3) {
                 display: flex;
                 justify-content: center;
                 width: 15%;
@@ -126,29 +129,42 @@ select:valid {
             height: 50px;
             box-shadow: none;
             transition: height .1s, box-shadow .1s;
+
+            button {
+                border: none;
+            }
             
             .table_column {
                 width: 100%;
                 padding: 10px 10px;
                 display: flex;
                 align-items: center;
+                cursor: pointer;
 
                 &:nth-child(1) {
                     width: 85%;
-                    cursor: pointer;
                 }
         
                 &:nth-child(2) {
                     display: flex;
                     justify-content: center;
                     width: 15%;
-                    
-                    img {
-                        max-width: 30px;
-                        transform: rotate(-45deg);
-                        cursor: pointer;
-                    }
                 }
+
+                &:nth-child(3) {
+                    display: flex;
+                    justify-content: center;
+                    width: 15%;
+                }
+
+                img {
+                    max-width: 30px;
+                }
+            }
+
+            .name_column {
+                justify-content: space-between;
+                background: linear-gradient(90deg, rgba(23,109,113,0) 0%, rgba(23,109,113,0) 80%, var(--accept-color) 100%);
             }
 
             &:hover {
