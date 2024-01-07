@@ -47,7 +47,7 @@
     </main>
 </div>
 
-<div class="table_container" *ngIf="products && addModalOpen">
+<div class="table_container fixed_header" *ngIf="products && addModalOpen">
     <main>
         <div *ngFor="let product of products | searchfilter: searchTerm" class="table_row" [ngStyle]="{'border-left': product.categoryId.color ? '4px solid' + product.categoryId.color : '4px solid blue'}">
             <div class="table_column" (click)="addToList(product)">
@@ -55,7 +55,7 @@
                 {{product.name}}
             </div>
             <div class="table_column remove_product" (click)="removeFromList(product)">
-                <img src="assets/icons/plus_black.png" alt="Remove product">
+                <img src="assets/icons/minus-64-white.png" alt="Remove product">
             </div>
         </div>
     </main>
