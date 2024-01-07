@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from "@angular/router"
 import { map } from 'rxjs/operators';
+import { NgxSpinnerService } from "ngx-spinner";
 
 import { ListsService } from 'src/core/_service/lists.service';
 import { List } from '../../core/interface/list';
@@ -24,10 +25,12 @@ export class ListsComponent implements OnInit {
   constructor(
     private listsService: ListsService,
     private modalService: NgbModal,
-    private router: Router
+    private router: Router,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
+    this.spinner.show();
     this.listsService.getAllLists()
     .pipe(
       map(lists => this.sortList(lists, this.sortDirection)
@@ -36,6 +39,7 @@ export class ListsComponent implements OnInit {
     .subscribe(
       (res) => {
          this.lists = res;
+         this.spinner.hide();
       }
     )
   }

@@ -4,6 +4,7 @@ import { Product } from 'src/core/interface/product';
 import { ProductService } from 'src/core/_service/product.service';
 import { ListsService } from 'src/core/_service/lists.service';
 import { ActivatedRoute  } from '@angular/router';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-edit-list',
@@ -19,22 +20,28 @@ export class EditListComponent implements OnInit {
   listOfProductsToBuy: Product[] = [];
   listOfProductsBought: Product[] = [];
   listOfProducts: Product[] = [];
+  productsToDisplay: Product[] = [];
 
   constructor(
     private productService: ProductService,
     private listsService: ListsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
     this.listId = this.route.snapshot.paramMap.get('id');
+    this.getAllData();
+  }
 
+  getAllData() {
+    this.spinner.show('main');
     this.listsService.getSpecList(this.listId).subscribe(res => {
       this.listOfProducts = res.products;
-      this.listOfProductsToBuy = res.products.filter(p => p.active === true);
-      this.listOfProductsBought = res.products.filter(p => p.active === false);
+      this.updateListOfProductsToBuy(res.products);
       this.sortList(this.listOfProductsToBuy);
       this.sortList(this.listOfProductsBought);
+      this.spinner.hide('main');
     })
     this.getListOfProducts();
   }
@@ -43,30 +50,32 @@ export class EditListComponent implements OnInit {
     this.addModalOpen = !this.addModalOpen;
 
     if(this.addModalOpen) {
-      this.products.forEach((e, i) => {
-        if(this.listOfProducts.some((product) => product._id === e._id)) {
-          this.products.splice(i, 1);
-        }
-      });
+      this.filterProductsList();
     } else {
       this.sortList(this.listOfProducts);
     }
   }
 
   saveList() {
-    this.listsService.addProductToList(this.listId, this.listOfProducts).subscribe(res => {console.log(res)});
+    this.spinner.show('main');
+    this.listsService.addProductToList(this.listId, this.listOfProducts).subscribe(res => {this.spinner.hide('main'); console.log(res)});
     if(this.addModalOpen) {
       this.openProductsModalFn();
+    } else {
+
     }
+    this.updateListOfProductsToBuy(this.listOfProducts);
   }
 
   getListOfProducts() {
+    this.spinner.show('add-spinner');
     if(!this.products) {
       this.productService.getAllProducts()
       .subscribe(
         res => {
           this.products = res;
           this.sortList(this.products);
+          this.spinner.hide('add-spinner');
         }
       )
     }
@@ -74,7 +83,7 @@ export class EditListComponent implements OnInit {
 
   addToList(product: Product) {
     if(this.addModalOpen) {
-      this.products[this.products.findIndex(e => e._id === product._id)].amountToBuy += product.amount;
+      this.productsToDisplay[this.productsToDisplay.findIndex(e => e._id === product._id)].amountToBuy += product.amount;
     } else {
       this.listOfProducts[this.listOfProducts.findIndex(e => e._id === product._id)].amountToBuy += product.amount;
     }
@@ -85,11 +94,20 @@ export class EditListComponent implements OnInit {
 
   }
 
+  filterProductsList() {
+    this.productsToDisplay = this.products.filter( p => !this.listOfProducts.find(e => e._id === p._id));
+  }
+
+  updateListOfProductsToBuy(products: Product[]) {
+    this.listOfProductsToBuy = products.filter(p => p.active === true);
+    this.listOfProductsBought = products.filter(p => p.active === false);
+  }
+
   removeFromList(product: Product) {
     if(product.amountToBuy < 0) return;
 
     if(this.addModalOpen) {
-      this.products[this.products.findIndex(e => e._id === product._id)].amountToBuy -= product.amount;
+      this.productsToDisplay[this.productsToDisplay.findIndex(e => e._id === product._id)].amountToBuy -= product.amount;
     } else {
       this.listOfProducts[this.listOfProducts.findIndex(e => e._id === product._id)].amountToBuy -= product.amount;
     }    

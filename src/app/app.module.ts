@@ -31,6 +31,7 @@ import { SearchfilterPipe } from './shared/pipe/searchfilter.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     BrowserAnimationsModule,
     NoopAnimationsModule,
     MatRadioModule,
+    NgxSpinnerModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: env.production,
       // Register the ServiceWorker as soon as the application is stable

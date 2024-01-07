@@ -1,3 +1,5 @@
+<ngx-spinner type="ball-grid-pulse" size="medium" name="main"></ngx-spinner>
+<ngx-spinner *ngIf="addModalOpen" type="ball-grid-pulse" size="medium" name="add-spinner"></ngx-spinner>
 <div class="table_header">
     <label for="search"></label>
     <input class="search_input" [(ngModel)]="searchTerm" placeholder="Wyszukaj produktu" *ngIf="addModalOpen">
@@ -14,18 +16,18 @@
 
 <div class="table_container fixed_header" *ngIf="!addModalOpen">
     <main>
-        <div *ngFor="let product of listOfProductsToBuy | searchfilter: searchTerm" class="table_row" [ngStyle]="{'border-left': product.categoryId.color ? '4px solid' + product.categoryId.color : '4px solid blue'}">
-            <div class="table_column name_column" (click)="addToList(product)" *ngIf="product.active === true">
+        <div *ngFor="let product of listOfProductsToBuy" class="table_row" [ngStyle]="{'border-left': product.categoryId.color ? '4px solid' + product.categoryId.color : '4px solid blue'}">
+            <div class="table_column name_column" (click)="addToList(product)">
                 <div>
                     <span class="amount">({{product.amount}}/{{product.amountToBuy}})&nbsp;</span>
                     {{product.name}}
                 </div>
                 <img src="assets/icons/plus-64-white.png" alt="">
             </div>
-            <div class="table_column remove_product" (click)="removeFromList(product)" *ngIf="product.active === true">
+            <div class="table_column remove_product" (click)="removeFromList(product)">
                 <img src="assets/icons/minus-64-white.png" alt="Remove product">
             </div>
-            <div class="table_column already_bought" (click)="alreadyBought(product)" *ngIf="product.active === true">
+            <div class="table_column already_bought" (click)="alreadyBought(product)">
                 <img src="assets/icons/checkmark-64-white.png" alt="Already bought">
             </div>
         </div>
@@ -35,7 +37,7 @@
         <br>
         <br>
         
-        <div *ngFor="let product of listOfProductsBought | searchfilter: searchTerm" class="table_row" [ngStyle]="{'border-left': product.categoryId.color ? '4px solid' + product.categoryId.color : '4px solid blue'}">
+        <div *ngFor="let product of listOfProductsBought" class="table_row" [ngStyle]="{'border-left': product.categoryId.color ? '4px solid' + product.categoryId.color : '4px solid blue'}">
             <div class="table_column" [ngClass]="{'bought' : product.active === false}">
                 <span class="amount">({{product.amount}}/{{product.amountToBuy}})&nbsp;</span>
                 {{product.name}}
@@ -49,7 +51,7 @@
 
 <div class="table_container fixed_header" *ngIf="products && addModalOpen">
     <main>
-        <div *ngFor="let product of products | searchfilter: searchTerm" class="table_row" [ngStyle]="{'border-left': product.categoryId.color ? '4px solid' + product.categoryId.color : '4px solid blue'}">
+        <div *ngFor="let product of productsToDisplay | searchfilter: searchTerm" class="table_row" [ngStyle]="{'border-left': product.categoryId.color ? '4px solid' + product.categoryId.color : '4px solid blue'}">
             <div class="table_column" (click)="addToList(product)">
                 <span class="amount">({{product.amount}}/{{product.amountToBuy}})&nbsp;</span>
                 {{product.name}}
