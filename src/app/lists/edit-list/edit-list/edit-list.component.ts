@@ -50,6 +50,7 @@ export class EditListComponent implements OnInit {
     this.addModalOpen = !this.addModalOpen;
 
     if(this.addModalOpen) {
+      // Itemy znikaja po wybraniu ich na liscie produktow ale powrocie, a nie zapisaniu
       this.filterProductsList();
     } else {
       this.sortList(this.listOfProducts);

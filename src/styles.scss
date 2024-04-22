@@ -337,6 +337,12 @@ th.mat-header-cell {
     }
 }
 
+@media screen and (max-width: 800px) {
+    .table_header {
+        margin-left: 0;
+    }
+}
+
 // Table icons 
 
 fa-icon:hover {
