@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1713806893183,
+  "timestamp": 1717685204542,
   "index": "https://Shizz74.github.io/shopping-list-fe-pwa/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "https://Shizz74.github.io/shopping-list-fe-pwa/favicon.ico",
         "https://Shizz74.github.io/shopping-list-fe-pwa/index.html",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/main.d575663fe1959c733f4f.js",
+        "https://Shizz74.github.io/shopping-list-fe-pwa/main.5d52d11121075ae588db.js",
         "https://Shizz74.github.io/shopping-list-fe-pwa/manifest.webmanifest",
         "https://Shizz74.github.io/shopping-list-fe-pwa/polyfills.9c117432e1a82421c6e5.js",
         "https://Shizz74.github.io/shopping-list-fe-pwa/runtime.dcb2da61b285b768a0e4.js",
@@ -145,8 +145,8 @@
     "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/shopping-cart-96-pink.png": "d0aded7a770e2fd5d34c2d6f7df3aad65477618c",
     "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/shopping-cart-96-white.png": "e557b21f8bdb7669f5ad9473b7d3c5c6c70fb3cf",
     "https://Shizz74.github.io/shopping-list-fe-pwa/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/index.html": "c336479375fefa0b951e32ad8807c2fdb473dd08",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/main.d575663fe1959c733f4f.js": "f86c7c979289a7b30ccaa7cfe1d8dee6173788a8",
+    "https://Shizz74.github.io/shopping-list-fe-pwa/index.html": "10f0b6f1f882c1cbac0231b8fa31ffdf8edb2e57",
+    "https://Shizz74.github.io/shopping-list-fe-pwa/main.5d52d11121075ae588db.js": "f997b218c05ba70b38ff03cc204f41399b9062d6",
     "https://Shizz74.github.io/shopping-list-fe-pwa/manifest.webmanifest": "2b6eeff8dc74d43060107cba7bd8603d5d001894",
     "https://Shizz74.github.io/shopping-list-fe-pwa/polyfills.9c117432e1a82421c6e5.js": "057d0a48087196b9cc5d9685965135c5812df2d7",
     "https://Shizz74.github.io/shopping-list-fe-pwa/runtime.dcb2da61b285b768a0e4.js": "6b77246273f10ca007f23b21c88e477aec92518f",
