@@ -109,7 +109,7 @@ export class EditListComponent implements OnInit {
   }
 
   removeFromList(product: Product) {
-    if (product.amountToBuy < 0) return;
+    if (product.amountToBuy <= 0) return;
 
     if (this.addModalOpen) {
       this.productsToDisplay[
