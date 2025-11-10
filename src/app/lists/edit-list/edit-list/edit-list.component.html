@@ -1,64 +1,120 @@
 <ngx-spinner type="ball-grid-pulse" size="medium" name="main"></ngx-spinner>
-<ngx-spinner *ngIf="addModalOpen" type="ball-grid-pulse" size="medium" name="add-spinner"></ngx-spinner>
+<ngx-spinner
+  *ngIf="addModalOpen"
+  type="ball-grid-pulse"
+  size="medium"
+  name="add-spinner"
+></ngx-spinner>
 <div class="table_header">
-    <label for="search"></label>
-    <input class="search_input" [(ngModel)]="searchTerm" placeholder="Wyszukaj produktu" *ngIf="addModalOpen">
-    <button class="add_btn" (click)="openProductsModalFn()">
-        <img width="30px" src="assets/icons/plus-64-green.png" alt="" *ngIf="!addModalOpen">
-        <span *ngIf="addModalOpen">Wróć</span>
-    </button>
-    <button (click)="saveList()">
-        <img width="30px" src="assets/icons/save-48-green.png" alt="">
-    </button>
+  <label for="search"></label>
+  <input
+    class="search_input"
+    [(ngModel)]="searchTerm"
+    placeholder="Wyszukaj produktu"
+    *ngIf="addModalOpen"
+  />
+  <button class="add_btn" (click)="openProductsModalFn()">
+    <img
+      width="30px"
+      src="assets/icons/plus-64-green.png"
+      alt=""
+      *ngIf="!addModalOpen"
+    />
+    <span *ngIf="addModalOpen">Wróć</span>
+  </button>
+  <button (click)="saveList()">
+    <img width="30px" src="assets/icons/save-48-green.png" alt="" />
+  </button>
 </div>
 
-
-
 <div class="table_container fixed_header" *ngIf="!addModalOpen">
-    <main>
-        <div *ngFor="let product of listOfProductsToBuy" class="table_row" [ngStyle]="{'border-left': product.categoryId.color ? '4px solid' + product.categoryId.color : '4px solid blue'}">
-            <div class="table_column name_column" (click)="addToList(product)">
-                <div>
-                    <span class="amount">({{product.amount}}/{{product.amountToBuy}})&nbsp;</span>
-                    {{product.name}}
-                </div>
-                <img src="assets/icons/plus-64-white.png" alt="">
-            </div>
-            <div class="table_column remove_product" (click)="removeFromList(product)">
-                <img src="assets/icons/minus-64-white.png" alt="Remove product">
-            </div>
-            <div class="table_column already_bought" (click)="alreadyBought(product)">
-                <img src="assets/icons/checkmark-64-white.png" alt="Already bought">
-            </div>
+  <main>
+    <div
+      *ngFor="let product of listOfProductsToBuy"
+      class="table_row"
+      [ngStyle]="{
+        'border-left': product.categoryId.color
+          ? '4px solid' + product.categoryId.color
+          : '4px solid blue'
+      }"
+    >
+      <div class="table_column name_column" (click)="addToList(product)">
+        <div>
+          <span class="amount"
+            >{{ product.amountToBuy }}{{ product.unit | unitShort }}&nbsp;</span
+          >
+          {{ product.name }}
         </div>
+        <img src="assets/icons/plus-64-white.png" alt="" />
+      </div>
+      <div
+        class="table_column remove_product"
+        (click)="removeFromList(product)"
+      >
+        <img src="assets/icons/minus-64-white.png" alt="Remove product" />
+      </div>
+      <div class="table_column already_bought" (click)="alreadyBought(product)">
+        <img src="assets/icons/checkmark-64-white.png" alt="Already bought" />
+      </div>
+    </div>
 
-        <br>
-        <br>
-        <br>
-        <br>
-        
-        <div *ngFor="let product of listOfProductsBought" class="table_row" [ngStyle]="{'border-left': product.categoryId.color ? '4px solid' + product.categoryId.color : '4px solid blue'}">
-            <div class="table_column" [ngClass]="{'bought' : product.active === false}">
-                <span class="amount">({{product.amount}}/{{product.amountToBuy}})&nbsp;</span>
-                {{product.name}}
-            </div>
-            <button class="table_column already_bought" (click)="alreadyBought(product)" [ngClass]="{'bought' : product.active === false}">
-                <img src="assets/icons/minus-64-white.png" alt="Already bought">
-            </button>
-        </div>
-    </main>
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <div
+      *ngFor="let product of listOfProductsBought"
+      class="table_row"
+      [ngStyle]="{
+        'border-left': product.categoryId.color
+          ? '4px solid' + product.categoryId.color
+          : '4px solid blue'
+      }"
+    >
+      <div
+        class="table_column"
+        [ngClass]="{ bought: product.active === false }"
+      >
+        <span class="amount"
+          >({{ product.amount }}/{{ product.amountToBuy }})&nbsp;</span
+        >
+        {{ product.name }}
+      </div>
+      <button
+        class="table_column already_bought"
+        (click)="alreadyBought(product)"
+        [ngClass]="{ bought: product.active === false }"
+      >
+        <img src="assets/icons/minus-64-white.png" alt="Already bought" />
+      </button>
+    </div>
+  </main>
 </div>
 
 <div class="table_container fixed_header" *ngIf="products && addModalOpen">
-    <main>
-        <div *ngFor="let product of productsToDisplay | searchfilter: searchTerm" class="table_row" [ngStyle]="{'border-left': product.categoryId.color ? '4px solid' + product.categoryId.color : '4px solid blue'}">
-            <div class="table_column" (click)="addToList(product)">
-                <span class="amount">({{product.amount}}/{{product.amountToBuy}})&nbsp;</span>
-                {{product.name}}
-            </div>
-            <div class="table_column remove_product" (click)="removeFromList(product)">
-                <img src="assets/icons/minus-64-white.png" alt="Remove product">
-            </div>
-        </div>
-    </main>
+  <main>
+    <div
+      *ngFor="let product of productsToDisplay | searchfilter : searchTerm"
+      class="table_row"
+      [ngStyle]="{
+        'border-left': product.categoryId.color
+          ? '4px solid' + product.categoryId.color
+          : '4px solid blue'
+      }"
+    >
+      <div class="table_column" (click)="addToList(product)">
+        <span class="amount"
+          >({{ product.amount }}/{{ product.amountToBuy }})&nbsp;</span
+        >
+        {{ product.name }}
+      </div>
+      <div
+        class="table_column remove_product"
+        (click)="removeFromList(product)"
+      >
+        <img src="assets/icons/minus-64-white.png" alt="Remove product" />
+      </div>
+    </div>
+  </main>
 </div>

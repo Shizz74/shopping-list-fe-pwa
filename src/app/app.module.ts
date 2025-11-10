@@ -31,7 +31,8 @@ import { SearchfilterPipe } from './shared/pipe/searchfilter.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { NgxSpinnerModule } from "ngx-spinner";
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { UnitShortPipe } from './shared/pipe/unit-short.pipe';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     ListsComponent,
     AddListComponent,
     EditListComponent,
-    SearchfilterPipe
+    SearchfilterPipe,
+    UnitShortPipe,
   ],
   imports: [
     HttpClientModule,
@@ -66,11 +68,11 @@ import { NgxSpinnerModule } from "ngx-spinner";
       enabled: env.production,
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:30000',
     }),
     NgbModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
