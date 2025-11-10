@@ -7,7 +7,7 @@ export class UnitShortPipe implements PipeTransform {
   private readonly unitMap: Record<string, string> = {
     sztuk: 'szt',
     gram: 'g',
-    ml: 'ml',
+    kilogramów: 'kg',
   };
 
   transform(value: string): string {
