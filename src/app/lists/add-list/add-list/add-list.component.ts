@@ -1,55 +1,56 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ListsService } from 'src/core/_service/lists.service';
-import {Router} from "@angular/router"
+import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-list',
   templateUrl: './add-list.component.html',
-  styleUrls: ['./add-list.component.scss']
+  styleUrls: ['./add-list.component.scss'],
 })
 export class AddListComponent implements OnInit {
-
   error = false;
   message = '';
   alert = false;
 
   addList = new FormGroup({
-    name: new FormControl('', [Validators.required]),
+    name: new FormControl(this.getDefaultName(), [Validators.required]),
   });
 
   constructor(
     private listsService: ListsService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private datePipe: DatePipe
+  ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  private getDefaultName(): string {
+    return this.datePipe.transform(new Date(), 'dd.MM.yyyy HH:mm:ss') ?? '';
   }
 
   onSubmit() {
-    this.listsService.saveList(this.addList.value)
-    .subscribe(
-      res => {
+    this.listsService.saveList(this.addList.value).subscribe(
+      (res) => {
         this.error = false;
-        this.message = "Zapisane!"
+        this.message = 'Zapisane!';
         this.alert = true;
         setTimeout(() => {
           this.alert = false;
-        },3000)
-        this.router.navigate(['/listy'])
+        }, 3000);
+        this.router.navigate(['/listy']);
       },
-      error => {
+      (error) => {
         this.error = true;
-        if (error.error === 'list_exist') this.message = 'Lista z taką nazwą już istnieje'
-      
+        if (error.error === 'list_exist')
+          this.message = 'Lista z taką nazwą już istnieje';
 
         this.alert = true;
         setTimeout(() => {
           this.alert = false;
-        },
-          3000)
+        }, 3000);
       }
-    )
+    );
   }
-
 }
