@@ -77,7 +77,7 @@
         [ngClass]="{ bought: product.active === false }"
       >
         <span class="amount"
-          >({{ product.amount }}/{{ product.amountToBuy }})&nbsp;</span
+          >{{ product.amountToBuy }}{{ product.unit | unitShort }}&nbsp;</span
         >
         {{ product.name }}
       </div>
@@ -105,7 +105,7 @@
     >
       <div class="table_column" (click)="addToList(product)">
         <span class="amount"
-          >({{ product.amount }}/{{ product.amountToBuy }})&nbsp;</span
+          >{{ product.amountToBuy }}{{ product.unit | unitShort }}&nbsp;</span
         >
         {{ product.name }}
       </div>
