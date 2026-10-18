@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { of } from 'rxjs';
+import { ListsService } from 'src/core/_service/lists.service';
 
 import { ListsComponent } from './lists.component';
 
@@ -8,7 +11,11 @@ describe('ListsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ListsComponent ]
+      imports: [ListsComponent],
+      providers: [
+        provideRouter([]),
+        { provide: ListsService, useValue: { getAllLists: () => of([]) } },
+      ],
     })
     .compileComponents();
   });

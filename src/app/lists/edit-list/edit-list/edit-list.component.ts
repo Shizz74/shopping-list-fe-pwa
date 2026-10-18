@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { SearchfilterPipe } from '../../../shared/pipe/searchfilter.pipe';
+import { UnitShortPipe } from '../../../shared/pipe/unit-short.pipe';
 import { Product } from 'src/core/interface/product';
 import { ProductService } from 'src/core/_service/product.service';
 import { ListsService } from 'src/core/_service/lists.service';
@@ -6,9 +11,11 @@ import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  selector: 'app-edit-list',
-  templateUrl: './edit-list.component.html',
-  styleUrls: ['./edit-list.component.scss'],
+    selector: 'app-edit-list',
+    templateUrl: './edit-list.component.html',
+    styleUrls: ['./edit-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, FormsModule, NgxSpinnerModule, SearchfilterPipe, UnitShortPipe],
 })
 export class EditListComponent implements OnInit {
   products: Product[];
@@ -24,7 +31,8 @@ export class EditListComponent implements OnInit {
     private productService: ProductService,
     private listsService: ListsService,
     private route: ActivatedRoute,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -40,6 +48,7 @@ export class EditListComponent implements OnInit {
       this.sortList(this.listOfProductsToBuy);
       this.sortList(this.listOfProductsBought);
       this.spinner.hide('main');
+      this.cdr.markForCheck();
     });
     this.getListOfProducts();
   }
@@ -77,6 +86,7 @@ export class EditListComponent implements OnInit {
         this.products = res;
         this.sortList(this.products);
         this.spinner.hide('add-spinner');
+        this.cdr.markForCheck();
       });
     }
   }

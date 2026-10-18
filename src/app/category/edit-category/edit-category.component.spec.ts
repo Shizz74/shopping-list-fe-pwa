@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute, provideRouter } from '@angular/router';
+import { of } from 'rxjs';
+import { CategoryService } from 'src/core/_service/category.service';
 
 import { EditCategoryComponent } from './edit-category.component';
 
@@ -8,7 +11,15 @@ describe('EditCategoryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditCategoryComponent ]
+      imports: [EditCategoryComponent],
+      providers: [
+        provideRouter([]),
+        {
+          provide: ActivatedRoute,
+          useValue: { snapshot: { params: { id: 'category-id' } } },
+        },
+        { provide: CategoryService, useValue: { getSpecCat: () => of({ name: '', color: '' }) } },
+      ],
     })
     .compileComponents();
   });

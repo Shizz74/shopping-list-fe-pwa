@@ -1,4 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
+import { ListsService } from 'src/core/_service/lists.service';
+import { ProductService } from 'src/core/_service/product.service';
 
 import { EditListComponent } from './edit-list.component';
 
@@ -8,7 +12,15 @@ describe('EditListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditListComponent ]
+      imports: [EditListComponent],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: { snapshot: { paramMap: { get: () => 'list-id' } } },
+        },
+        { provide: ListsService, useValue: { getSpecList: () => of({ products: [] }) } },
+        { provide: ProductService, useValue: { getAllProducts: () => of([]) } },
+      ],
     })
     .compileComponents();
   });

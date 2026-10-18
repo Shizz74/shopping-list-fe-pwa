@@ -1,34 +1,40 @@
-<div class="table_container" *ngIf="category">
-  <nav>
+@if (category) {
+  <div class="table_container">
+    <nav>
       <div class="nav_header" (click)="sortList(this.category, this.sortDirection)">Nazwa</div>
       <div class="nav_header">Usuń</div>
-  </nav>
-  <main>
-      <div *ngFor="let cat of category" class="table_row" [ngStyle]="{'border-left': cat.color ? '4px solid' + cat.color : '4px solid blue'}">
+    </nav>
+    <main>
+      @for (cat of category; track cat) {
+        <div class="table_row" [ngStyle]="{'border-left': cat.color ? '4px solid' + cat.color : '4px solid blue'}">
           <div class="table_column" (click)="goToCategoryView(cat._id)">{{cat.name}}</div>
           <div class="table_column delete_category">
-              <img src="assets/icons/minus-64-white.png" alt="" (click)="openDeleteModal(cat._id, cat.name)">
+            <img src="assets/icons/minus-64-white.png" alt="" (click)="openDeleteModal(cat._id, cat.name)">
           </div>
-      </div>
-  </main>
-</div>
+        </div>
+      }
+    </main>
+  </div>
+}
 
 
 <!-- Delete Modal -->
-<div id="customModal" *ngIf="this.deleteModal">
-  <div class="modal-content">
+@if (this.deleteModal) {
+  <div id="customModal">
+    <div class="modal-content">
       <header>
-          <button class="btn btn--close" (click)="this.deleteModal = !this.deleteModal">
-              X
-          </button>
+        <button class="btn btn--close" (click)="this.deleteModal = !this.deleteModal">
+          X
+        </button>
       </header>
       <article>
-          <p>Czy na pewno chcesz usunąć kategorię?</p>
-          <strong>{{ this.categoryNameToRemove }}</strong>
+        <p>Czy na pewno chcesz usunąć kategorię?</p>
+        <strong>{{ this.categoryNameToRemove }}</strong>
       </article>
       <footer>
-          <button type="button" class="btn btn--decline" (click)="this.deleteModal = !this.deleteModal;">Nie</button>
-          <button type="button" class="btn btn--accept" (click)="deleteCategory()">Tak</button>
+        <button type="button" class="btn btn--decline" (click)="this.deleteModal = !this.deleteModal;">Nie</button>
+        <button type="button" class="btn btn--accept" (click)="deleteCategory()">Tak</button>
       </footer>
+    </div>
   </div>
-</div>
+}

@@ -1,35 +1,41 @@
-<div class="table_container" *ngIf="products">
+@if (products) {
+  <div class="table_container">
     <label for="search"></label>
     <input class="search_input" [(ngModel)]="searchTerm" placeholder="Wyszukaj produktu">
     <nav>
-        <div class="nav_header" (click)="sortList(this.products, this.sortDirection)">Nazwa</div>
-        <div class="nav_header">Usuń</div>
+      <div class="nav_header" (click)="sortList(this.products, this.sortDirection)">Nazwa</div>
+      <div class="nav_header">Usuń</div>
     </nav>
     <main>
-        <div *ngFor="let product of products | searchfilter: searchTerm" class="table_row" [ngStyle]="{'border-left': product.categoryId.color ? '4px solid' + product.categoryId.color : '4px solid blue'}">
-            <div class="table_column" (click)="goToProductView(product._id)">{{product.name}}</div>
-            <div class="table_column delete_product">
-                <img src="assets/icons/minus-64-white.png" alt="" (click)="openDeleteModal(product._id)">
-            </div>
+      @for (product of products | searchfilter: searchTerm; track product) {
+        <div class="table_row" [ngStyle]="{'border-left': product.categoryId.color ? '4px solid' + product.categoryId.color : '4px solid blue'}">
+          <div class="table_column" (click)="goToProductView(product._id)">{{product.name}}</div>
+          <div class="table_column delete_product">
+            <img src="assets/icons/minus-64-white.png" alt="" (click)="openDeleteModal(product._id)">
+          </div>
         </div>
+      }
     </main>
-</div>
+  </div>
+}
 
 <!-- Delete Modal -->
-<div id="customModal" *ngIf="this.deleteModal">
+@if (this.deleteModal) {
+  <div id="customModal">
     <div class="modal-content">
-        <header>
-            <button class="btn btn--close" (click)="this.deleteModal = !this.deleteModal">
-                X
-            </button>
-        </header>
-        <article>
-            <p>Czy na pewno chcesz usunąć produkt?</p>
-            <strong>{{ this.productNameToRemove }}</strong>
-        </article>
-        <footer>
-            <button type="button" class="btn btn--decline" (click)="this.deleteModal = !this.deleteModal;">Nie</button>
-            <button type="button" class="btn btn--accept" (click)="deleteProduct()">Tak</button>
-        </footer>
+      <header>
+        <button class="btn btn--close" (click)="this.deleteModal = !this.deleteModal">
+          X
+        </button>
+      </header>
+      <article>
+        <p>Czy na pewno chcesz usunąć produkt?</p>
+        <strong>{{ this.productNameToRemove }}</strong>
+      </article>
+      <footer>
+        <button type="button" class="btn btn--decline" (click)="this.deleteModal = !this.deleteModal;">Nie</button>
+        <button type="button" class="btn btn--accept" (click)="deleteProduct()">Tak</button>
+      </footer>
     </div>
-</div>
+  </div>
+}

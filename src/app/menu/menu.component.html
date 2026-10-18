@@ -15,10 +15,12 @@
         <img width="35px" [src]="activeElement === 'category' ? 'assets/icons/category-50-pink.png' : 'assets/icons/category-50-white.png'" alt="">
       </a>
     </li>
-    <li *ngIf="addItemUrl !== ''">
-      <a class="flex-center" routerLink="{{ addItemUrl }}" >
-        <img width="35px" src="assets/icons/plus-64-white.png" alt="">
-      </a>
-    </li>
+    @if (addItemUrl !== '') {
+      <li>
+        <a class="flex-center" routerLink="{{ addItemUrl }}" >
+          <img width="35px" src="assets/icons/plus-64-white.png" alt="">
+        </a>
+      </li>
+    }
   </ul>
 </nav>

@@ -1,4 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { DatePipe } from '@angular/common';
+import { provideRouter } from '@angular/router';
+import { of } from 'rxjs';
+import { ListsService } from 'src/core/_service/lists.service';
 
 import { AddListComponent } from './add-list.component';
 
@@ -8,7 +12,12 @@ describe('AddListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddListComponent ]
+      imports: [AddListComponent],
+      providers: [
+        DatePipe,
+        provideRouter([]),
+        { provide: ListsService, useValue: { saveList: () => of({}) } },
+      ],
     })
     .compileComponents();
   });

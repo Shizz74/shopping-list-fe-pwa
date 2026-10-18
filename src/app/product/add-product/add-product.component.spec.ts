@@ -1,4 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { of } from 'rxjs';
+import { CategoryService } from 'src/core/_service/category.service';
+import { ProductService } from 'src/core/_service/product.service';
 
 import { AddProductComponent } from './add-product.component';
 
@@ -8,7 +12,12 @@ describe('AddProductComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddProductComponent ]
+      imports: [AddProductComponent],
+      providers: [
+        provideRouter([]),
+        { provide: CategoryService, useValue: { getAllCategories: () => of([]) } },
+        { provide: ProductService, useValue: { saveProduct: () => of({}) } },
+      ],
     })
     .compileComponents();
   });

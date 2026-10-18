@@ -1,35 +1,41 @@
 <ngx-spinner type="ball-grid-pulse" size="medium"></ngx-spinner>
-<div class="table_container" *ngIf="lists">
+@if (lists) {
+  <div class="table_container">
     <nav>
-        <div class="nav_header" (click)="sortList(this.lists, this.sortDirection)">Nazwa</div>
-        <div class="nav_header">Usuń</div>
+      <div class="nav_header" (click)="sortList(this.lists, this.sortDirection)">Nazwa</div>
+      <div class="nav_header">Usuń</div>
     </nav>
     <main>
-        <div *ngFor="let list of lists" class="table_row">
-            <div class="table_column" (click)="goToListView(list._id)">{{list.name}}</div>
-            <div class="table_column">
-                <img src="assets/icons/delete-48-red.png" alt="" (click)="openDeleteModal(list._id)">
-            </div>
+      @for (list of lists; track list) {
+        <div class="table_row">
+          <div class="table_column" (click)="goToListView(list._id)">{{list.name}}</div>
+          <div class="table_column">
+            <img src="assets/icons/delete-48-red.png" alt="" (click)="openDeleteModal(list._id)">
+          </div>
         </div>
+      }
     </main>
-</div>
+  </div>
+}
 
 <!-- Delete Modal -->
-<div id="customModal" *ngIf="this.deleteModal">
+@if (this.deleteModal) {
+  <div id="customModal">
     <div class="modal-content">
-        <header>
-            <button class="btn btn--close" (click)="this.deleteModal = !this.deleteModal">
-                X
-            </button>
-        </header>
-        <article>
-            <p>Czy na pewno chcesz usunąć listę?</p>
-            <strong>{{ this.listNameToDelete }}</strong>
-        </article>
-        <footer>
-            <button type="button" class="btn btn--decline" (click)="this.deleteModal = !this.deleteModal;">Nie</button>
-            <button type="button" class="btn btn--accept" (click)="deleteList()">Tak</button>
-        </footer>
+      <header>
+        <button class="btn btn--close" (click)="this.deleteModal = !this.deleteModal">
+          X
+        </button>
+      </header>
+      <article>
+        <p>Czy na pewno chcesz usunąć listę?</p>
+        <strong>{{ this.listNameToDelete }}</strong>
+      </article>
+      <footer>
+        <button type="button" class="btn btn--decline" (click)="this.deleteModal = !this.deleteModal;">Nie</button>
+        <button type="button" class="btn btn--accept" (click)="deleteList()">Tak</button>
+      </footer>
     </div>
-</div>
+  </div>
+}
 <!-- Delete Modal -->

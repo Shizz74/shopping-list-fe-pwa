@@ -1,27 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ListsService } from 'src/core/_service/lists.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-add-list',
-  templateUrl: './add-list.component.html',
-  styleUrls: ['./add-list.component.scss'],
+    selector: 'app-add-list',
+    templateUrl: './add-list.component.html',
+    styleUrls: ['./add-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, ReactiveFormsModule, RouterLink],
 })
 export class AddListComponent implements OnInit {
   error = false;
   message = '';
   alert = false;
 
-  addList = new FormGroup({
-    name: new FormControl(this.getDefaultName(), [Validators.required]),
+  addList = new UntypedFormGroup({
+    name: new UntypedFormControl(this.getDefaultName(), [Validators.required]),
   });
 
   constructor(
     private listsService: ListsService,
     private router: Router,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {}
@@ -36,8 +41,10 @@ export class AddListComponent implements OnInit {
         this.error = false;
         this.message = 'Zapisane!';
         this.alert = true;
+        this.cdr.markForCheck();
         setTimeout(() => {
           this.alert = false;
+          this.cdr.markForCheck();
         }, 3000);
         this.router.navigate(['/listy']);
       },
@@ -47,8 +54,10 @@ export class AddListComponent implements OnInit {
           this.message = 'Lista z taką nazwą już istnieje';
 
         this.alert = true;
+        this.cdr.markForCheck();
         setTimeout(() => {
           this.alert = false;
+          this.cdr.markForCheck();
         }, 3000);
       }
     );

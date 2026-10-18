@@ -1,8 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({
-  name: 'unitShort',
-})
+@Pipe({ name: 'unitShort' })
 export class UnitShortPipe implements PipeTransform {
   private readonly unitMap: Record<string, string> = {
     sztuk: 'szt',
