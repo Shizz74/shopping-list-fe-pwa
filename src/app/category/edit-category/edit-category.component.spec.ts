@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, provideRouter } from '@angular/router';
 import { of } from 'rxjs';
@@ -18,10 +19,12 @@ describe('EditCategoryComponent', () => {
           provide: ActivatedRoute,
           useValue: { snapshot: { params: { id: 'category-id' } } },
         },
-        { provide: CategoryService, useValue: { getSpecCat: () => of({ name: '', color: '' }) } },
+        {
+          provide: CategoryService,
+          useValue: { getSpecCat: () => of({ name: '', color: '' }) },
+        },
       ],
-    })
-    .compileComponents();
+    }).compileComponents();
   });
 
   beforeEach(() => {
