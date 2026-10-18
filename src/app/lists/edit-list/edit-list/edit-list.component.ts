@@ -1,8 +1,9 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
+  computed,
   OnInit,
+  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -31,21 +32,53 @@ import { NgxSpinnerService } from 'ngx-spinner';
   ],
 })
 export class EditListComponent implements OnInit {
-  products: Product[];
+  products = signal<Product[] | null>(null);
+  listOfProducts = signal<Product[]>([]);
+  savedProductIds = signal<Set<string> | null>(null);
+  listOfProductsToBuy = computed(() =>
+    this.sortProducts(
+      this.listOfProducts().filter((product) => product.active === true),
+    ),
+  );
+  listOfProductsBought = computed(() =>
+    this.sortProducts(
+      this.listOfProducts().filter((product) => product.active === false),
+    ),
+  );
+  productsToDisplay = computed(() => {
+    const draftProducts = this.listOfProducts();
+    const selectedProductIds = new Set(
+      draftProducts.map((product) => product._id),
+    );
+    const savedProductIds = this.savedProductIds();
+    if (!savedProductIds) return [];
+
+    return this.sortProducts(
+      (this.products() ?? [])
+        .filter(
+          (product) =>
+            !savedProductIds.has(product._id) ||
+            !selectedProductIds.has(product._id),
+        )
+        .map((product) => {
+          const draftProduct = draftProducts.find(
+            (item) => item._id === product._id,
+          );
+          return draftProduct
+            ? { ...product, amountToBuy: draftProduct.amountToBuy }
+            : product;
+        }),
+    );
+  });
   searchTerm: string;
   addModalOpen: boolean = false;
   listId: any;
-  listOfProductsToBuy: Product[] = [];
-  listOfProductsBought: Product[] = [];
-  listOfProducts: Product[] = [];
-  productsToDisplay: Product[] = [];
 
   constructor(
     private productService: ProductService,
     private listsService: ListsService,
     private route: ActivatedRoute,
     private spinner: NgxSpinnerService,
-    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -56,143 +89,106 @@ export class EditListComponent implements OnInit {
   getAllData() {
     this.spinner.show('main');
     this.listsService.getSpecList(this.listId).subscribe((res) => {
-      this.listOfProducts = res.products;
-      this.updateListOfProductsToBuy(res.products);
-      this.sortList(this.listOfProductsToBuy);
-      this.sortList(this.listOfProductsBought);
+      this.listOfProducts.set(
+        this.sortProducts(
+          res.products.filter((product) => product.amountToBuy > 0),
+        ),
+      );
+      this.savedProductIds.set(
+        new Set(
+          res.products
+            .filter((product) => product.amountToBuy > 0)
+            .map((product) => product._id),
+        ),
+      );
       this.spinner.hide('main');
-      this.cdr.markForCheck();
     });
     this.getListOfProducts();
   }
 
   openProductsModalFn() {
     this.addModalOpen = !this.addModalOpen;
-
-    if (this.addModalOpen) {
-      // Itemy znikaja po wybraniu ich na liscie produktow ale powrocie, a nie zapisaniu
-      this.filterProductsList();
-    } else {
-      this.sortList(this.listOfProducts);
-    }
   }
 
   saveList() {
     this.spinner.show('main');
+    const productsToSave = this.listOfProducts();
     this.listsService
-      .addProductToList(this.listId, this.listOfProducts)
+      .addProductToList(this.listId, productsToSave)
       .subscribe((res) => {
+        this.savedProductIds.set(
+          new Set(productsToSave.map((product) => product._id)),
+        );
         this.spinner.hide('main');
         console.log(res);
       });
     if (this.addModalOpen) {
       this.openProductsModalFn();
-    } else {
     }
-    this.updateListOfProductsToBuy(this.listOfProducts);
   }
 
   getListOfProducts() {
     this.spinner.show('add-spinner');
-    if (!this.products) {
+    if (!this.products()) {
       this.productService.getAllProducts().subscribe((res) => {
-        this.products = res;
-        this.sortList(this.products);
+        this.products.set(this.sortProducts(res));
         this.spinner.hide('add-spinner');
-        this.cdr.markForCheck();
       });
     }
   }
 
   addToList(product: Product) {
-    if (this.addModalOpen) {
-      this.productsToDisplay[
-        this.productsToDisplay.findIndex((e) => e._id === product._id)
-      ].amountToBuy += product.amount;
-    } else {
-      console.log(product);
-      console.log(
-        this.listOfProducts[
-          this.listOfProducts.findIndex((e) => e._id === product._id)
-        ],
-      );
-      this.listOfProducts[
-        this.listOfProducts.findIndex((e) => e._id === product._id)
-      ].amountToBuy += product.amount;
-    }
+    this.listOfProducts.update((products) => {
+      const existingProduct = products.find((item) => item._id === product._id);
+      if (existingProduct) {
+        return products.map((item) =>
+          item._id === product._id
+            ? { ...item, amountToBuy: item.amountToBuy + product.amount }
+            : item,
+        );
+      }
 
-    if (!this.listOfProducts.some((e) => e._id === product._id)) {
-      this.listOfProducts.push(product);
-    }
-  }
-
-  filterProductsList() {
-    this.productsToDisplay = this.products.filter(
-      (p) => !this.listOfProducts.find((e) => e._id === p._id),
-    );
-  }
-
-  updateListOfProductsToBuy(products: Product[]) {
-    this.listOfProductsToBuy = products.filter((p) => p.active === true);
-    this.listOfProductsBought = products.filter((p) => p.active === false);
+      return this.sortProducts([
+        ...products,
+        { ...product, amountToBuy: product.amount, active: true },
+      ]);
+    });
   }
 
   removeFromList(product: Product) {
-    if (product.amountToBuy <= 0) {
-      this.removeProductFromLists(product);
-      return;
-    }
+    this.listOfProducts.update((products) => {
+      const existingProduct = products.find((item) => item._id === product._id);
+      if (!existingProduct) return products;
 
-    if (this.addModalOpen) {
-      this.productsToDisplay[
-        this.productsToDisplay.findIndex((e) => e._id === product._id)
-      ].amountToBuy -= product.amount;
-    } else {
-      this.listOfProducts[
-        this.listOfProducts.findIndex((e) => e._id === product._id)
-      ].amountToBuy -= product.amount;
-    }
+      const remainingAmount = existingProduct.amountToBuy - product.amount;
+      if (remainingAmount <= 0) {
+        this.savedProductIds.update((productIds) => {
+          if (!productIds) return productIds;
+          const updatedProductIds = new Set(productIds);
+          updatedProductIds.delete(product._id);
+          return updatedProductIds;
+        });
+        return products.filter((item) => item._id !== product._id);
+      }
 
-    if (product.amountToBuy < 1) {
-      this.removeProductFromLists(product);
-    }
-  }
-
-  private removeProductFromLists(product: Product) {
-    for (const products of [this.listOfProducts, this.listOfProductsToBuy]) {
-      const productIndex = products.findIndex(
-        (item) => item._id === product._id,
+      return products.map((item) =>
+        item._id === product._id
+          ? { ...item, amountToBuy: remainingAmount }
+          : item,
       );
-      if (productIndex !== -1) products.splice(productIndex, 1);
-    }
+    });
   }
 
   alreadyBought(product: Product) {
-    if (product.active === true) {
-      this.listOfProducts[
-        this.listOfProducts.findIndex((e) => e._id === product._id)
-      ].active = false;
-      this.listOfProductsToBuy.splice(
-        this.listOfProductsToBuy.findIndex((e) => e._id === product._id),
-        1,
-      );
-      this.listOfProductsBought.push(product);
-      this.sortList(this.listOfProductsBought);
-    } else {
-      this.listOfProducts[
-        this.listOfProducts.findIndex((e) => e._id === product._id)
-      ].active = true;
-      this.listOfProductsBought.splice(
-        this.listOfProductsBought.findIndex((e) => e._id === product._id),
-        1,
-      );
-      this.listOfProductsToBuy.push(product);
-      this.sortList(this.listOfProductsToBuy);
-    }
+    this.listOfProducts.update((products) =>
+      products.map((item) =>
+        item._id === product._id ? { ...item, active: !item.active } : item,
+      ),
+    );
   }
 
-  sortList(products) {
-    products.sort((a, b) => {
+  private sortProducts(products: Product[]): Product[] {
+    return [...products].sort((a, b) => {
       if (a.categoryId.name === b.categoryId.name) {
         return a.name < b.name ? -1 : 1;
       } else {

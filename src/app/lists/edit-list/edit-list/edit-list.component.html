@@ -23,7 +23,7 @@
 @if (!addModalOpen) {
   <div class="table_container fixed_header">
     <main>
-      @for (product of listOfProductsToBuy; track product) {
+      @for (product of listOfProductsToBuy(); track product._id) {
         <div
           class="table_row"
           [ngStyle]="{
@@ -62,7 +62,7 @@
       <br />
       <br />
       <br />
-      @for (product of listOfProductsBought; track product) {
+      @for (product of listOfProductsBought(); track product._id) {
         <div
           class="table_row"
           [ngStyle]="{
@@ -94,12 +94,12 @@
   </div>
 }
 
-@if (products && addModalOpen) {
+@if (products() && addModalOpen) {
   <div class="table_container fixed_header">
     <main>
       @for (
-        product of productsToDisplay | searchfilter: searchTerm;
-        track product
+        product of productsToDisplay() | searchfilter: searchTerm;
+        track product._id
       ) {
         <div
           class="table_row"
