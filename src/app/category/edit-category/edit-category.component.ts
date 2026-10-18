@@ -1,14 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 import { CategoryService } from 'src/core/_service/category.service';
 import { Category } from 'src/core/interface/category';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-edit-category',
   templateUrl: './edit-category.component.html',
-  styleUrls: ['./edit-category.component.scss']
+  styleUrls: ['./edit-category.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
 })
 export class EditCategoryComponent implements OnInit {
   id: string | any;
@@ -17,52 +31,52 @@ export class EditCategoryComponent implements OnInit {
   message = '';
   alert = false;
 
-  editCategory = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    color: new FormControl('', [Validators.required]),
+  editCategory = new UntypedFormGroup({
+    name: new UntypedFormControl('', [Validators.required]),
+    color: new UntypedFormControl('', [Validators.required]),
   });
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private catService: CategoryService
-  ) { }
+    private catService: CategoryService,
+    private cdr: ChangeDetectorRef,
+  ) {}
 
   ngOnInit(): void {
-
     this.id = this.route.snapshot.params['id'];
 
-    this.catService.getSpecCat(this.id).subscribe(
-      res => {
-        this.editCategory.patchValue(res);
-    })
-
+    this.catService.getSpecCat(this.id).subscribe((res) => {
+      this.editCategory.patchValue(res);
+      this.cdr.markForCheck();
+    });
   }
 
   onSubmit() {
-    this.catService.editCategory(this.id, this.editCategory.value)
-    .subscribe(
-      res => {
+    this.catService.editCategory(this.id, this.editCategory.value).subscribe(
+      (res) => {
         this.error = false;
-        this.message = "Zapisane!"
+        this.message = 'Zapisane!';
         this.alert = true;
+        this.cdr.markForCheck();
         setTimeout(() => {
           this.alert = false;
           this.editCategory.reset();
-          this.router.navigate(['/kategorie'])
-        },3000)
+          this.cdr.markForCheck();
+          this.router.navigate(['/kategorie']);
+        }, 3000);
       },
-      error => {
+      (error) => {
         this.error = true;
-        this.message = 'Ups, coś poszło nie tak. Spróbuj ponownie później.'
+        this.message = 'Ups, coś poszło nie tak. Spróbuj ponownie później.';
 
         this.alert = true;
+        this.cdr.markForCheck();
         setTimeout(() => {
           this.alert = false;
-        },
-          3000)
-      }
-    )
+          this.cdr.markForCheck();
+        }, 3000);
+      },
+    );
   }
-
 }

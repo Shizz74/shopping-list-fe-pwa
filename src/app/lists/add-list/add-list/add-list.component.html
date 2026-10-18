@@ -1,17 +1,19 @@
 <div class="table_container">
-  <div *ngIf="alert" class="alert"
-    [ngClass]=" error ? 'alert-danger' : 'alert-success'"> {{message}} 
-  </div>
+  @if (alert) {
+    <div class="alert"
+      [ngClass]=" error ? 'alert-danger' : 'alert-success'"> {{message}}
+    </div>
+  }
   <h1>Dodaj nową listę</h1>
   <form [formGroup]="addList" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="name">Nazwa</label>
       <input type="text" class="form-control" id="name" aria-describedby="name" placeholder="Wpisz nazwę"
         formControlName="name" required>
-    </div>
-    <div class="button-section">
-      <a routerLink="/listy" class="btn btn--decline reset-links">Wróć bez zapisywania</a>
-      <button type="submit" class="btn btn--accept" [disabled]="!addList.valid">Zapisz</button>
-    </div>
-  </form>
-</div>
+      </div>
+      <div class="button-section">
+        <a routerLink="/listy" class="btn btn--decline reset-links">Wróć bez zapisywania</a>
+        <button type="submit" class="btn btn--accept" [disabled]="!addList.valid">Zapisz</button>
+      </div>
+    </form>
+  </div>

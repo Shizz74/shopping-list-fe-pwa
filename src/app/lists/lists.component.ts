@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router } from "@angular/router"
 import { map } from 'rxjs/operators';
 import { NgxSpinnerService } from "ngx-spinner";
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { ListsService } from 'src/core/_service/lists.service';
 import { List } from '../../core/interface/list';
 
 @Component({
-  selector: 'app-lists',
-  templateUrl: './lists.component.html',
-  styleUrls: ['./lists.component.scss']
+    selector: 'app-lists',
+    templateUrl: './lists.component.html',
+    styleUrls: ['./lists.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, NgxSpinnerModule],
 })
 export class ListsComponent implements OnInit {
 
@@ -24,9 +27,9 @@ export class ListsComponent implements OnInit {
 
   constructor(
     private listsService: ListsService,
-    private modalService: NgbModal,
     private router: Router,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -40,6 +43,7 @@ export class ListsComponent implements OnInit {
       (res) => {
          this.lists = res;
          this.spinner.hide();
+         this.cdr.markForCheck();
       }
     )
   }
@@ -66,6 +70,7 @@ export class ListsComponent implements OnInit {
         this.listsService.getAllLists().subscribe(res => {
           this.lists = res;
           this.deleteModal = !this.deleteModal;
+          this.cdr.markForCheck();
         })
       },
       error => {

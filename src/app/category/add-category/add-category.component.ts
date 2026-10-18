@@ -1,11 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { CategoryService } from 'src/core/_service/category.service';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-add-category',
-  templateUrl: './add-category.component.html',
-  styleUrls: ['./add-category.component.scss']
+    selector: 'app-add-category',
+    templateUrl: './add-category.component.html',
+    styleUrls: ['./add-category.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, ReactiveFormsModule, RouterLink],
 })
 export class AddCategoryComponent implements OnInit {
 
@@ -13,14 +18,15 @@ export class AddCategoryComponent implements OnInit {
   message = '';
   alert = false;
 
-  addCategory = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    color: new FormControl('', [Validators.required]),
+  addCategory = new UntypedFormGroup({
+    name: new UntypedFormControl('', [Validators.required]),
+    color: new UntypedFormControl('', [Validators.required]),
   });
   
 
   constructor(
     private catService: CategoryService,
+    private cdr: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
@@ -33,8 +39,10 @@ export class AddCategoryComponent implements OnInit {
         this.error = false;
         this.message = "Zapisane!"
         this.alert = true;
+        this.cdr.markForCheck();
         setTimeout(() => {
           this.alert = false;
+          this.cdr.markForCheck();
         },3000)
         this.addCategory.reset();
       },
@@ -45,8 +53,10 @@ export class AddCategoryComponent implements OnInit {
         if ( error.error === 'color_exist') this.message = 'Kategoria z takim kolorem już istnieje'
 
         this.alert = true;
+        this.cdr.markForCheck();
         setTimeout(() => {
           this.alert = false;
+          this.cdr.markForCheck();
         },
           3000)
       }

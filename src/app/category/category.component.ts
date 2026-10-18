@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router"
+import { CommonModule } from '@angular/common';
 
 import { CategoryService } from 'src/core/_service/category.service';
 import { Category } from 'src/core/interface/category';
 @Component({
-  selector: 'app-category',
-  templateUrl: './category.component.html',
-  styleUrls: ['./category.component.scss']
+    selector: 'app-category',
+    templateUrl: './category.component.html',
+    styleUrls: ['./category.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule],
 })
 export class CategoryComponent implements OnInit {
 
@@ -21,12 +24,14 @@ export class CategoryComponent implements OnInit {
 
   constructor(
     private catService : CategoryService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
     this.catService.getAllCategories().subscribe(res => {
       this.category = res;
+      this.cdr.markForCheck();
     })
   }
 
@@ -48,6 +53,7 @@ export class CategoryComponent implements OnInit {
         this.catService.getAllCategories().subscribe(res => {
           this.category = res;
           this.deleteModal = !this.deleteModal;
+          this.cdr.markForCheck();
         })
       },
       error => {

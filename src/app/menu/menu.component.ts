@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss']
+  styleUrls: ['./menu.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [RouterLink],
 })
 export class MenuComponent implements OnInit {
 
   activeElement: string;
   addItemUrl: string;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.setUpActiveMenu();
@@ -35,6 +38,7 @@ export class MenuComponent implements OnInit {
         } else {
           this.addItemUrl = '';
         }
+        this.cdr.markForCheck();
       }
     })
   }

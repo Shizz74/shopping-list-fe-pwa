@@ -1,16 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 import { ProductService } from 'src/core/_service/product.service';
 import { Product } from 'src/core/interface/product';
 import { Category } from 'src/core/interface/category';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { MatRadioModule } from '@angular/material/radio';
 import { CategoryService } from 'src/core/_service/category.service';
 
 @Component({
-  selector: 'app-edit-product',
-  templateUrl: './edit-product.component.html',
-  styleUrls: ['./edit-product.component.scss']
+    selector: 'app-edit-product',
+    templateUrl: './edit-product.component.html',
+    styleUrls: ['./edit-product.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, ReactiveFormsModule, RouterLink, MatRadioModule],
 })
 export class EditProductComponent implements OnInit {
 
@@ -21,17 +27,18 @@ export class EditProductComponent implements OnInit {
   message = '';
   alert = false;
 
-  editProduct = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    categoryId: new FormControl('', [Validators.required]),
-    unit: new FormControl('', [Validators.required]),
+  editProduct = new UntypedFormGroup({
+    name: new UntypedFormControl('', [Validators.required]),
+    categoryId: new UntypedFormControl('', [Validators.required]),
+    unit: new UntypedFormControl('', [Validators.required]),
   });
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private catService: CategoryService,
-    private productService: ProductService
+    private productService: ProductService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -41,6 +48,7 @@ export class EditProductComponent implements OnInit {
     this.productService.getSpecProduct(this.id).subscribe(
       res => {
         this.editProduct.patchValue(res);
+        this.cdr.markForCheck();
     })
 
     
@@ -48,6 +56,7 @@ export class EditProductComponent implements OnInit {
       res => {
         this.allCategory = res;
         this.editProduct.patchValue(res);
+        this.cdr.markForCheck();
     })
 
   }
@@ -59,9 +68,11 @@ export class EditProductComponent implements OnInit {
         this.error = false;
         this.message = "Zapisane!"
         this.alert = true;
+        this.cdr.markForCheck();
         setTimeout(() => {
           this.alert = false;
           this.editProduct.reset();
+          this.cdr.markForCheck();
           this.router.navigate(['/produkty'])
         },3000)
       },
@@ -70,8 +81,10 @@ export class EditProductComponent implements OnInit {
         this.message = 'Ups, coś poszło nie tak. Spróbuj ponownie później.'
 
         this.alert = true;
+        this.cdr.markForCheck();
         setTimeout(() => {
           this.alert = false;
+          this.cdr.markForCheck();
         },
           3000)
       }
