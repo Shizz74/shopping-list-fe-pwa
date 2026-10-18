@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1762791030521,
+  "timestamp": 1792326052008,
   "index": "https://Shizz74.github.io/shopping-list-fe-pwa/index.html",
   "assetGroups": [
     {
@@ -11,14 +11,14 @@
         "ignoreVary": true
       },
       "urls": [
+        "https://Shizz74.github.io/shopping-list-fe-pwa/chunk-GEF57Z47.js",
+        "https://Shizz74.github.io/shopping-list-fe-pwa/chunk-QNPQALU4.js",
         "https://Shizz74.github.io/shopping-list-fe-pwa/favicon.ico",
         "https://Shizz74.github.io/shopping-list-fe-pwa/index.html",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/main.a5b073a3ee26f526abda.js",
+        "https://Shizz74.github.io/shopping-list-fe-pwa/main-MQ2ITFLL.js",
         "https://Shizz74.github.io/shopping-list-fe-pwa/manifest.webmanifest",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/polyfills.9c117432e1a82421c6e5.js",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/runtime.dcb2da61b285b768a0e4.js",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/scripts.b306dd7ae3694cfd8910.js",
-        "https://Shizz74.github.io/shopping-list-fe-pwa/styles.ab4dc528c8722818531c.css"
+        "https://Shizz74.github.io/shopping-list-fe-pwa/polyfills-YP4MTO2B.js",
+        "https://Shizz74.github.io/shopping-list-fe-pwa/styles-4JOONX6E.css"
       ],
       "patterns": []
     },
@@ -160,14 +160,14 @@
     "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/shopping-cart-96-green.png": "fb41dd331fdd4be77ae6d5fd9d551c1ab6008f14",
     "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/shopping-cart-96-pink.png": "d0aded7a770e2fd5d34c2d6f7df3aad65477618c",
     "https://Shizz74.github.io/shopping-list-fe-pwa/assets/icons/shopping-cart-96-white.png": "e557b21f8bdb7669f5ad9473b7d3c5c6c70fb3cf",
+    "https://Shizz74.github.io/shopping-list-fe-pwa/chunk-GEF57Z47.js": "9b7f9c6845724f1fefb23c74d04acefb43f2ff95",
+    "https://Shizz74.github.io/shopping-list-fe-pwa/chunk-QNPQALU4.js": "5dabbe61d8899213f606d3132719d28421d725c1",
     "https://Shizz74.github.io/shopping-list-fe-pwa/favicon.ico": "93993ecc3f5a68dae16a967c443efdfa4b15525f",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/index.html": "669f1fe5bfe27aa9f8265cb7c1bd5f7ba76e6042",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/main.a5b073a3ee26f526abda.js": "b592229c8616aceb0ae5679603ab5ad240b4a0e9",
+    "https://Shizz74.github.io/shopping-list-fe-pwa/index.html": "85396bca11bd4df1402bba644dca41dfd38db207",
+    "https://Shizz74.github.io/shopping-list-fe-pwa/main-MQ2ITFLL.js": "cdd5f9abf4ca1fe89d2aa769628f243496f359f6",
     "https://Shizz74.github.io/shopping-list-fe-pwa/manifest.webmanifest": "dfa884b7b7adaae423e1691f3e346ec50d584b0a",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/polyfills.9c117432e1a82421c6e5.js": "057d0a48087196b9cc5d9685965135c5812df2d7",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/runtime.dcb2da61b285b768a0e4.js": "6b77246273f10ca007f23b21c88e477aec92518f",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/scripts.b306dd7ae3694cfd8910.js": "9d04f113d855b5f390a049eb7fa7c56ea2d30c56",
-    "https://Shizz74.github.io/shopping-list-fe-pwa/styles.ab4dc528c8722818531c.css": "49d8e886854ac53c7eee3808ce3144a6b171d866"
+    "https://Shizz74.github.io/shopping-list-fe-pwa/polyfills-YP4MTO2B.js": "d18deb3bd9f86eb7d85b11265a215b7dfae782d8",
+    "https://Shizz74.github.io/shopping-list-fe-pwa/styles-4JOONX6E.css": "4352b7710ec10c756a1a329e2c92f8a5403e9ca5"
   },
   "navigationUrls": [
     {
