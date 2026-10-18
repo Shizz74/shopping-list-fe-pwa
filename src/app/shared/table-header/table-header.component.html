@@ -1,0 +1,14 @@
+<div class="table_header">
+  @if (showSearch()) {
+    <input
+      #searchInput
+      class="search_input"
+      aria-label="Wyszukaj produktu"
+      [ngModel]="searchTerm()"
+      (ngModelChange)="searchTerm.set($event)"
+      (click)="searchInput.select()"
+      placeholder="Wyszukaj produktu"
+    />
+  }
+  <ng-content />
+</div>

@@ -1,21 +1,26 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router"
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SearchfilterPipe } from '../shared/pipe/searchfilter.pipe';
+import { TableHeaderComponent } from '../shared/table-header/table-header.component';
 
 import { ProductService } from 'src/core/_service/product.service';
-import { Product } from '../../core/interface/product'
+import { Product } from '../../core/interface/product';
 
 @Component({
-    selector: 'app-product',
-    templateUrl: './product.component.html',
-    styleUrls: ['./product.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule, FormsModule, SearchfilterPipe],
+  selector: 'app-product',
+  templateUrl: './product.component.html',
+  styleUrls: ['./product.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule, FormsModule, SearchfilterPipe, TableHeaderComponent],
 })
 export class ProductComponent implements OnInit {
-
   products: Product[] | any;
   sortDirection = true;
   closeResult = '';
@@ -27,52 +32,52 @@ export class ProductComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private router: Router,
-    private cdr: ChangeDetectorRef
-  ) { }
-  
+    private cdr: ChangeDetectorRef,
+  ) {}
+
   ngOnInit(): void {
-    this.productService.getAllProducts().subscribe(
-      (res) => {
-        this.products = res;
-        this.cdr.markForCheck();
-      }
-      )
-    }
+    this.productService.getAllProducts().subscribe((res) => {
+      this.products = res;
+      this.cdr.markForCheck();
+    });
+  }
 
   sortList(products, sortDirection) {
-    products.sort((a,b) => {
+    products.sort((a, b) => {
       if (sortDirection === true) {
-        return a.name < b.name ? -1 : 1
+        return a.name < b.name ? -1 : 1;
       } else {
-        return a.name < b.name ? 1 : -1
+        return a.name < b.name ? 1 : -1;
       }
     });
     this.sortDirection = !this.sortDirection;
     return products;
   }
-    
+
   deleteProduct() {
     this.productService.deleteProduct(this.productIdToRemove).subscribe(
-      res => {
-        this.productService.getAllProducts().subscribe(res => {
+      (res) => {
+        this.productService.getAllProducts().subscribe((res) => {
           this.products = res;
           this.deleteModal = !this.deleteModal;
           this.cdr.markForCheck();
-        })
+        });
       },
-      error => {
-        console.log("bład");
-      }
-    )
+      (error) => {
+        console.log('bład');
+      },
+    );
   }
 
   goToProductView(_id: string) {
-    this.router.navigate(['/produkt-edycja', _id])
+    this.router.navigate(['/produkt-edycja', _id]);
   }
 
   openDeleteModal(_id: string) {
     this.productIdToRemove = _id;
-    this.productNameToRemove = this.products.find(list => list._id === _id).name;
+    this.productNameToRemove = this.products.find(
+      (list) => list._id === _id,
+    ).name;
     this.deleteModal = !this.deleteModal;
   }
 }

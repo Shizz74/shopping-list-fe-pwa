@@ -1,9 +1,15 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SearchfilterPipe } from '../../../shared/pipe/searchfilter.pipe';
 import { UnitShortPipe } from '../../../shared/pipe/unit-short.pipe';
+import { TableHeaderComponent } from '../../../shared/table-header/table-header.component';
 import { Product } from 'src/core/interface/product';
 import { ProductService } from 'src/core/_service/product.service';
 import { ListsService } from 'src/core/_service/lists.service';
@@ -11,11 +17,18 @@ import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-    selector: 'app-edit-list',
-    templateUrl: './edit-list.component.html',
-    styleUrls: ['./edit-list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule, FormsModule, NgxSpinnerModule, SearchfilterPipe, UnitShortPipe],
+  selector: 'app-edit-list',
+  templateUrl: './edit-list.component.html',
+  styleUrls: ['./edit-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    CommonModule,
+    FormsModule,
+    NgxSpinnerModule,
+    SearchfilterPipe,
+    UnitShortPipe,
+    TableHeaderComponent,
+  ],
 })
 export class EditListComponent implements OnInit {
   products: Product[];
@@ -32,7 +45,7 @@ export class EditListComponent implements OnInit {
     private listsService: ListsService,
     private route: ActivatedRoute,
     private spinner: NgxSpinnerService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -109,7 +122,7 @@ export class EditListComponent implements OnInit {
 
   filterProductsList() {
     this.productsToDisplay = this.products.filter(
-      (p) => !this.listOfProducts.find((e) => e._id === p._id)
+      (p) => !this.listOfProducts.find((e) => e._id === p._id),
     );
   }
 
@@ -134,7 +147,7 @@ export class EditListComponent implements OnInit {
     if (product.amountToBuy < 1) {
       this.listOfProducts.splice(
         this.listOfProducts.findIndex((e) => e._id === product._id),
-        1
+        1,
       );
     }
   }
@@ -146,7 +159,7 @@ export class EditListComponent implements OnInit {
       ].active = false;
       this.listOfProductsToBuy.splice(
         this.listOfProductsToBuy.findIndex((e) => e._id === product._id),
-        1
+        1,
       );
       this.listOfProductsBought.push(product);
       this.sortList(this.listOfProductsBought);
@@ -156,7 +169,7 @@ export class EditListComponent implements OnInit {
       ].active = true;
       this.listOfProductsBought.splice(
         this.listOfProductsBought.findIndex((e) => e._id === product._id),
-        1
+        1,
       );
       this.listOfProductsToBuy.push(product);
       this.sortList(this.listOfProductsToBuy);

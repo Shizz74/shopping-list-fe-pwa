@@ -1,12 +1,5 @@
 @if (products) {
-  <div class="table_header">
-    <label for="search"></label>
-    <input
-      class="search_input"
-      [(ngModel)]="searchTerm"
-      placeholder="Wyszukaj produktu"
-    />
-  </div>
+  <app-table-header [(searchTerm)]="searchTerm" />
   <div class="table_container fixed_header">
     <nav>
       <div
