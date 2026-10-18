@@ -110,6 +110,12 @@ export class EditListComponent implements OnInit {
         this.productsToDisplay.findIndex((e) => e._id === product._id)
       ].amountToBuy += product.amount;
     } else {
+      console.log(product);
+      console.log(
+        this.listOfProducts[
+          this.listOfProducts.findIndex((e) => e._id === product._id)
+        ],
+      );
       this.listOfProducts[
         this.listOfProducts.findIndex((e) => e._id === product._id)
       ].amountToBuy += product.amount;
@@ -132,7 +138,10 @@ export class EditListComponent implements OnInit {
   }
 
   removeFromList(product: Product) {
-    if (product.amountToBuy <= 0) return;
+    if (product.amountToBuy <= 0) {
+      this.removeProductFromLists(product);
+      return;
+    }
 
     if (this.addModalOpen) {
       this.productsToDisplay[
@@ -145,10 +154,16 @@ export class EditListComponent implements OnInit {
     }
 
     if (product.amountToBuy < 1) {
-      this.listOfProducts.splice(
-        this.listOfProducts.findIndex((e) => e._id === product._id),
-        1,
+      this.removeProductFromLists(product);
+    }
+  }
+
+  private removeProductFromLists(product: Product) {
+    for (const products of [this.listOfProducts, this.listOfProductsToBuy]) {
+      const productIndex = products.findIndex(
+        (item) => item._id === product._id,
       );
+      if (productIndex !== -1) products.splice(productIndex, 1);
     }
   }
 
